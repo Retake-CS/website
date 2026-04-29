@@ -1,0 +1,143 @@
+
+/* Estilos para ocultar a barra de rolagem mas manter a funcionalidade */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE, Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Animações para transições suaves */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: fadeIn 0.2s ease-in;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(16px) scale(0.98);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+/* Classes utilitárias para cores RCS */
+.bg-rcs-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-rcs-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-rcs-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-rcs-base-100 {
+  background-color: var(--color-base-100);
+}
+
+.bg-rcs-base-200 {
+  background-color: var(--color-base-200);
+}
+
+.bg-rcs-base-300 {
+  background-color: var(--color-base-300);
+}
+
+.text-rcs-primary {
+  color: var(--color-primary);
+}
+
+.text-rcs-secondary {
+  color: var(--color-secondary);
+}
+
+.text-rcs-accent {
+  color: var(--color-accent);
+}
+
+.text-rcs-base-content {
+  color: var(--color-base-content);
+}
+
+/* Gradientes baseados nas variáveis */
+.bg-gradient-to-t-rcs {
+  background-image: linear-gradient(to top, var(--gradient-from), var(--gradient-to));
+}
+
+.bg-gradient-to-b-rcs {
+  background-image: linear-gradient(to bottom, var(--gradient-from), var(--gradient-to));
+}
+
+/* Estilos para scroll */
+.scroll-container {
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  position: relative;
+  -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
+}
+
+.scroll-container.dragging {
+  scroll-behavior: auto !important;
+  cursor: grabbing !important;
+}
+
+/* Minimal scrollbar styling but don't hide completely to preserve accessibility */
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 9999px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.debug-scroll-active {
+  border-bottom: 2px solid red;
+}
+
+/* helper to prevent overflow on flex items inside containers */
+.min-w-0 {
+  min-width: 0;
+}
+
+/* Ensure that horizontally scrollable sections are full width and allow touch panning */
+.horizontal-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}

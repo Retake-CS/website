@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "strict": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "target": "ES2022",
     "lib": [
@@ -44,7 +46,7 @@
     "next-env.d.ts",
     "next.config.js",
     "next-sitemap.config.cjs"
-  ],
+, "src/utils/bo3.requests.ts"  ],
   "exclude": [
     "node_modules"
   ],

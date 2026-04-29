@@ -1,0 +1,36 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Estilos personalizados adicionais podem ser adicionados aqui */
+
+/* Estilos para scroll suave - CORRIGIDO */
+.scroll-container {
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  position: relative;
+}
+
+.scroll-container.dragging {
+  scroll-behavior: auto !important;
+  cursor: grabbing !important;
+}
+
+/* Ocultar scrollbar mas manter funcionalidade */
+.scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Classe para depuração do auto-scroll */
+.debug-scroll-active {
+  border-bottom: 2px solid red;
+}

@@ -1,0 +1,336 @@
+/* Utilidades de cores RCS para os vários tons */
+
+/* RCS Secondary (preto) */
+.bg-rcs-sec { background-color: var(--rcs-sec); }
+.bg-rcs-sec-50 { background-color: var(--rcs-sec-50); }
+.bg-rcs-sec-100 { background-color: var(--rcs-sec-100); }
+.bg-rcs-sec-200 { background-color: var(--rcs-sec-200); }
+.bg-rcs-sec-300 { background-color: var(--rcs-sec-300); }
+.bg-rcs-sec-400 { background-color: var(--rcs-sec-400); }
+.bg-rcs-sec-500 { background-color: var(--rcs-sec-500); }
+.bg-rcs-sec-600 { background-color: var(--rcs-sec-600); }
+.bg-rcs-sec-700 { background-color: var(--rcs-sec-700); }
+.bg-rcs-sec-800 { background-color: var(--rcs-sec-800); }
+.bg-rcs-sec-900 { background-color: var(--rcs-sec-900); }
+
+.text-rcs-sec { color: var(--rcs-sec); }
+.text-rcs-sec-50 { color: var(--rcs-sec-50); }
+.text-rcs-sec-100 { color: var(--rcs-sec-100); }
+.text-rcs-sec-200 { color: var(--rcs-sec-200); }
+.text-rcs-sec-300 { color: var(--rcs-sec-300); }
+.text-rcs-sec-400 { color: var(--rcs-sec-400); }
+.text-rcs-sec-500 { color: var(--rcs-sec-500); }
+.text-rcs-sec-600 { color: var(--rcs-sec-600); }
+.text-rcs-sec-700 { color: var(--rcs-sec-700); }
+.text-rcs-sec-800 { color: var(--rcs-sec-800); }
+.text-rcs-sec-900 { color: var(--rcs-sec-900); }
+
+/* RCS Background (branco) */
+.bg-rcs-bg { background-color: var(--rcs-bg); }
+.bg-rcs-bg-50 { background-color: var(--rcs-bg-50); }
+.bg-rcs-bg-100 { background-color: var(--rcs-bg-100); }
+.bg-rcs-bg-200 { background-color: var(--rcs-bg-200); }
+.bg-rcs-bg-300 { background-color: var(--rcs-bg-300); }
+.bg-rcs-bg-400 { background-color: var(--rcs-bg-400); }
+.bg-rcs-bg-500 { background-color: var(--rcs-bg-500); }
+.bg-rcs-bg-600 { background-color: var(--rcs-bg-600); }
+.bg-rcs-bg-700 { background-color: var(--rcs-bg-700); }
+.bg-rcs-bg-800 { background-color: var(--rcs-bg-800); }
+.bg-rcs-bg-900 { background-color: var(--rcs-bg-900); }
+
+.text-rcs-bg { color: var(--rcs-bg); }
+.text-rcs-bg-50 { color: var(--rcs-bg-50); }
+.text-rcs-bg-100 { color: var(--rcs-bg-100); }
+.text-rcs-bg-200 { color: var(--rcs-bg-200); }
+.text-rcs-bg-300 { color: var(--rcs-bg-300); }
+.text-rcs-bg-400 { color: var(--rcs-bg-400); }
+.text-rcs-bg-500 { color: var(--rcs-bg-500); }
+.text-rcs-bg-600 { color: var(--rcs-bg-600); }
+.text-rcs-bg-700 { color: var(--rcs-bg-700); }
+.text-rcs-bg-800 { color: var(--rcs-bg-800); }
+.text-rcs-bg-900 { color: var(--rcs-bg-900); }
+
+/* RCS CTA (laranja) */
+.bg-rcs-cta { background-color: var(--rcs-cta); }
+.bg-rcs-cta-50 { background-color: var(--rcs-cta-50); }
+.bg-rcs-cta-100 { background-color: var(--rcs-cta-100); }
+.bg-rcs-cta-200 { background-color: var(--rcs-cta-200); }
+.bg-rcs-cta-300 { background-color: var(--rcs-cta-300); }
+.bg-rcs-cta-400 { background-color: var(--rcs-cta-400); }
+.bg-rcs-cta-500 { background-color: var(--rcs-cta-500); }
+.bg-rcs-cta-600 { background-color: var(--rcs-cta-600); }
+.bg-rcs-cta-700 { background-color: var(--rcs-cta-700); }
+.bg-rcs-cta-800 { background-color: var(--rcs-cta-800); }
+.bg-rcs-cta-900 { background-color: var(--rcs-cta-900); }
+
+.text-rcs-cta { color: var(--rcs-cta); }
+.text-rcs-cta-50 { color: var(--rcs-cta-50); }
+.text-rcs-cta-100 { color: var(--rcs-cta-100); }
+.text-rcs-cta-200 { color: var(--rcs-cta-200); }
+.text-rcs-cta-300 { color: var(--rcs-cta-300); }
+.text-rcs-cta-400 { color: var(--rcs-cta-400); }
+.text-rcs-cta-500 { color: var(--rcs-cta-500); }
+.text-rcs-cta-600 { color: var(--rcs-cta-600); }
+.text-rcs-cta-700 { color: var(--rcs-cta-700); }
+.text-rcs-cta-800 { color: var(--rcs-cta-800); }
+.text-rcs-cta-900 { color: var(--rcs-cta-900); }
+
+/* Utilidades de borda */
+.border-rcs-sec { border-color: var(--rcs-sec); }
+.border-rcs-bg { border-color: var(--rcs-bg); }
+.border-rcs-cta { border-color: var(--rcs-cta); }
+
+/* Utilidades para hover */
+.hover\:bg-rcs-sec:hover { background-color: var(--rcs-sec); }
+.hover\:bg-rcs-bg:hover { background-color: var(--rcs-bg); }
+.hover\:bg-rcs-cta:hover { background-color: var(--rcs-cta); }
+
+.hover\:text-rcs-sec:hover { color: var(--rcs-sec); }
+.hover\:text-rcs-bg:hover { color: var(--rcs-bg); }
+.hover\:text-rcs-cta:hover { color: var(--rcs-cta); }
+
+/* Novas classes de utilidades para hover e animações */
+.hover\:scale-102:hover { transform: scale(1.02); }
+.hover\:scale-105:hover { transform: scale(1.05); }
+.hover\:scale-110:hover { transform: scale(1.1); }
+
+.transition-all { 
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform { 
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-colors { 
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-opacity { 
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-shadow { 
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Utilitários para scrollbar personalizada */
+.scrollbar-rcs::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-rcs::-webkit-scrollbar-track {
+  background: var(--rcs-sec-200);
+}
+
+.scrollbar-rcs::-webkit-scrollbar-thumb {
+  background: var(--rcs-cta);
+  border-radius: 3px;
+}
+
+.scrollbar-rcs::-webkit-scrollbar-thumb:hover {
+  background: var(--rcs-cta-700);
+}
+
+/* Utilitários de gradiente no padrão Tailwind */
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--gradient-from, rgba(0,0,0,0.1)), var(--gradient-to, transparent));
+}
+
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--gradient-from, rgba(0,0,0,0.1)), var(--gradient-to, transparent));
+}
+
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--gradient-from, rgba(0,0,0,0.1)), var(--gradient-to, transparent));
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--gradient-from, rgba(0,0,0,0.1)), var(--gradient-to, transparent));
+}
+
+/* From: origem do gradiente */
+.from-rcs-sec {
+  --gradient-from: var(--rcs-sec);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-to, transparent);
+}
+
+.from-rcs-sec-900 {
+  --gradient-from: var(--rcs-sec-900);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-to, transparent);
+}
+
+.from-rcs-bg {
+  --gradient-from: var(--rcs-bg);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-to, transparent);
+}
+
+.from-rcs-bg-50 {
+  --gradient-from: var(--rcs-bg-50);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-to, transparent);
+}
+
+/* Via: ponto intermediário do gradiente */
+.via-rcs-sec-500 {
+  --gradient-via: var(--rcs-sec-500);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-via), var(--gradient-to, transparent);
+}
+
+.via-rcs-sec-700 {
+  --gradient-via: var(--rcs-sec-700);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-via), var(--gradient-to, transparent);
+}
+
+.via-rcs-sec-900 {
+  --gradient-via: var(--rcs-sec-900);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-via), var(--gradient-to, transparent);
+}
+
+.via-rcs-bg-300 {
+  --gradient-via: var(--rcs-bg-300);
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-via), var(--gradient-to, transparent);
+}
+
+/* To: destino do gradiente */
+.to-transparent {
+  --gradient-to: transparent;
+}
+
+.to-rcs-sec-300 {
+  --gradient-to: var(--rcs-sec-300);
+}
+
+.to-rcs-bg-700 {
+  --gradient-to: var(--rcs-bg-700);
+}
+
+/* Classes com opacidade */
+.from-rcs-sec-900\/80 {
+  --gradient-from: rgba(var(--rcs-sec-900-rgb), 0.8);
+}
+
+.from-rcs-sec-900\/50 {
+  --gradient-from: rgba(var(--rcs-sec-900-rgb), 0.5);
+}
+
+.from-rcs-sec-900\/95 {
+  --gradient-from: rgba(var(--rcs-sec-900-rgb), 0.95);
+}
+
+.via-rcs-sec-900\/80 {
+  --gradient-via: rgba(var(--rcs-sec-900-rgb), 0.8);
+}
+
+.via-rcs-sec-900\/60 {
+  --gradient-via: rgba(var(--rcs-sec-900-rgb), 0.6);
+}
+
+.via-rcs-sec-900\/70 {
+  --gradient-via: rgba(var(--rcs-sec-900-rgb), 0.7);
+}
+
+.from-rcs-bg-50\/80 {
+  --gradient-from: rgba(var(--rcs-bg-50-rgb), 0.8);
+}
+
+.from-rcs-bg-50\/50 {
+  --gradient-from: rgba(var(--rcs-bg-50-rgb), 0.5);
+}
+
+/* Manter temporariamente as classes antigas para compatibilidade */
+/* Essas classes podem ser removidas após atualizar todos os componentes */
+.bg-gradient-to-t-from-rcs-sec { 
+  background-image: linear-gradient(to top, var(--rcs-sec), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-sec-via-rcs-sec-500 { 
+  background-image: linear-gradient(to top, var(--rcs-sec), var(--rcs-sec-500), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-sec-900 { 
+  background-image: linear-gradient(to top, var(--rcs-sec-900), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-sec-900-via-rcs-sec-700 { 
+  background-image: linear-gradient(to top, var(--rcs-sec-900), var(--rcs-sec-700), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-sec-900-via-rcs-sec-700-to-rcs-sec-300 { 
+  background-image: linear-gradient(to top, var(--rcs-sec-900), var(--rcs-sec-700), var(--rcs-sec-300));
+}
+
+.bg-gradient-to-b-from-rcs-sec { 
+  background-image: linear-gradient(to bottom, var(--rcs-sec), transparent);
+}
+
+.bg-gradient-to-b-from-rcs-sec-900 { 
+  background-image: linear-gradient(to bottom, var(--rcs-sec-900), transparent);
+}
+
+.bg-gradient-to-b-from-rcs-sec-900-via-rcs-sec-700 { 
+  background-image: linear-gradient(to bottom, var(--rcs-sec-900), var(--rcs-sec-700), transparent);
+}
+
+.bg-gradient-to-b-from-rcs-sec-900-via-rcs-sec-700-to-rcs-sec-300 { 
+  background-image: linear-gradient(to bottom, var(--rcs-sec-900), var(--rcs-sec-700), var(--rcs-sec-300));
+}
+
+.bg-gradient-to-r-from-rcs-sec { 
+  background-image: linear-gradient(to right, var(--rcs-sec), transparent);
+}
+
+.bg-gradient-to-l-from-rcs-sec { 
+  background-image: linear-gradient(to left, var(--rcs-sec), transparent);
+}
+
+/* Utilitários de gradiente RCS-BG */
+.bg-gradient-to-t-from-rcs-bg { 
+  background-image: linear-gradient(to top, var(--rcs-bg), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-bg-via-rcs-bg-300 { 
+  background-image: linear-gradient(to top, var(--rcs-bg), var(--rcs-bg-300), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-bg-50 { 
+  background-image: linear-gradient(to top, var(--rcs-bg-50), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-bg-50-via-rcs-bg-300 { 
+  background-image: linear-gradient(to top, var(--rcs-bg-50), var(--rcs-bg-300), transparent);
+}
+
+.bg-gradient-to-t-from-rcs-bg-50-via-rcs-bg-300-to-rcs-bg-700 { 
+  background-image: linear-gradient(to top, var(--rcs-bg-50), var(--rcs-bg-300), var(--rcs-bg-700));
+}
+
+.bg-gradient-to-b-from-rcs-bg { 
+  background-image: linear-gradient(to bottom, var(--rcs-bg), transparent);
+}
+
+.bg-gradient-to-b-from-rcs-bg-50 { 
+  background-image: linear-gradient(to bottom, var(--rcs-bg-50), transparent);
+}
+
+.bg-gradient-to-b-from-rcs-bg-50-via-rcs-bg-300 { 
+  background-image: linear-gradient(to bottom, var(--rcs-bg-50), var(--rcs-bg-300), transparent);
+}
+
+.bg-gradient-to-r-from-rcs-bg { 
+  background-image: linear-gradient(to right, var(--rcs-bg), transparent);
+}
+
+.bg-gradient-to-l-from-rcs-bg { 
+  background-image: linear-gradient(to left, var(--rcs-bg), transparent);
+}

@@ -1,0 +1,105 @@
+/* Estilos para controle de scroll personalizado */
+
+.scroll-container {
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  position: relative;
+  transition: background-color 0.3s ease;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch; /* Melhora a suavidade em iOS */
+  padding-bottom: 16px; /* Espaço para o indicador */
+  margin-bottom: 4px;
+}
+
+/* Mais sutil e refinado ao passar o mouse */
+.scroll-container:hover {
+  background-color: rgba(0,0,0,0.01);
+}
+
+/* Estado durante o arrasto - mais suave */
+.scroll-container.dragging {
+  scroll-behavior: auto !important;
+  cursor: grabbing !important;
+  background-color: rgba(0,0,0,0.03);
+}
+
+/* Estilização da scrollbar mais refinada */
+.scrollbar-rcs::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scrollbar-rcs::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.03);
+  border-radius: 8px;
+}
+
+.scrollbar-rcs::-webkit-scrollbar-thumb {
+  background: var(--rcs-cta);
+  border-radius: 8px;
+  opacity: 0.7;
+}
+
+.scrollbar-rcs::-webkit-scrollbar-thumb:hover {
+  background: var(--rcs-cta-700);
+  opacity: 1;
+}
+
+/* Indicador visual mais elegante */
+.auto-scroll-indicator {
+  position: absolute;
+  bottom: -2px;
+  right: 10px;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: var(--rcs-bg-50);
+  color: var(--rcs-sec-400);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  z-index: 5;
+  border: 1px solid rgba(0,0,0,0.05);
+  display: none;
+  height: 0px!important;
+}
+
+.auto-scroll-indicator:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.auto-scroll-active {
+  color: var(--rcs-cta-700);
+  font-weight: 500;
+}
+
+/* Adiciona animação para transições entre itens */
+.auto-scroll-content > div {
+  transition: transform 0.2s ease-out;
+}
+
+.auto-scroll-content > div:hover {
+  transform: translateY(-2px) scale(1.01);
+  z-index: 2;
+}
+
+/* Cores padrão para proporções corretas */
+:root {
+  --color-distribution-bg: 60%;
+  --color-distribution-sec: 30%;
+  --color-distribution-cta: 10%;
+}
+
+/* Otimização para telas sensíveis ao toque */
+@media (hover: none) {
+  .scroll-container {
+    cursor: default;
+    padding-bottom: 8px;
+  }
+  
+  .auto-scroll-indicator {
+    padding: 4px 10px;
+    opacity: 0.8;
+  }
+}

@@ -339,6 +339,116 @@ export const seed = async ({
     }),
   ])
 
+  payload.logger.info(`— Seeding demo pages...`)
+
+  // Create a simple demo page
+  const demoPage = await payload.create({
+    collection: 'pages',
+    data: {
+      title: 'Página de Exemplo',
+      slug: 'exemplo',
+      hero: {
+        type: 'highImpact',
+        richText: {
+          root: {
+            type: 'root',
+            version: 1,
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            children: [
+              {
+                type: 'heading',
+                tag: 'h1',
+                version: 1,
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                children: [
+                  {
+                    type: 'text',
+                    version: 1,
+                    text: 'Bem-vindo ao RCS',
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                version: 1,
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                children: [
+                  {
+                    type: 'text',
+                    version: 1,
+                    text: 'Esta é uma página de exemplo criada dinamicamente através do Payload CMS.',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      },
+      layout: [
+        {
+          blockType: 'content',
+          columns: [
+            {
+              size: 'full',
+              richText: {
+                root: {
+                  type: 'root',
+                  version: 1,
+                  direction: 'ltr',
+                  format: '',
+                  indent: 0,
+                  children: [
+                    {
+                      type: 'heading',
+                      tag: 'h2',
+                      version: 1,
+                      direction: 'ltr',
+                      format: '',
+                      indent: 0,
+                      children: [
+                        {
+                          type: 'text',
+                          version: 1,
+                          text: 'Sistema de Páginas Dinâmicas',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'paragraph',
+                      version: 1,
+                      direction: 'ltr',
+                      format: '',
+                      indent: 0,
+                      children: [
+                        {
+                          type: 'text',
+                          version: 1,
+                          text: 'Este sistema permite criar páginas customizadas diretamente no painel administrativo.',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      ],
+      meta: {
+        title: 'Página de Exemplo - RCS',
+        description: 'Exemplo de página dinâmica criada no Payload CMS',
+      },
+    },
+  })
+
+  payload.logger.info(`— Seeded demo page: ${demoPage.title}`)
+
   payload.logger.info('Seeded database successfully!')
 }
 

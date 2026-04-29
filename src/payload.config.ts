@@ -7,7 +7,6 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
-import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
@@ -17,8 +16,28 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
+/// ---
+
+// Import collections
+import Teams from './collections/Teams'
+import Players from './collections/Players'
+import Matches from './collections/Matches'
+import Tournaments from './collections/Tournaments'
+import Rankings from './collections/Rankings'
+import Search from './collections/SemanticSearch'
+import Media from './collections/Media'
+import BO3SyncRuns from './collections/BO3SyncRuns'
+
+// Import endpoints
+import searchEndpoint from './endpoints/semantic-search'
+import bo3SyncHealthEndpoint from './endpoints/bo3-sync-health'
+import bo3SyncTriggerEndpoint from './endpoints/bo3-sync-trigger'
+import { bo3SyncMatchesTask } from './jobs/tasks/bo3SyncMatchesTask'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const shouldPushSchema = process.env.PAYLOAD_PUSH_SCHEMA === 'true' && process.env.VITEST !== 'true'
+const enableBO3AutoRun = process.env.BO3_SYNC_ENABLE_AUTORUN === 'true'
 
 export default buildConfig({
   admin: {
@@ -63,8 +82,23 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URI || '',
     },
+    push: shouldPushSchema,
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [
+    Pages,
+    Posts,
+    Categories,
+    Users,
+    Teams,
+    Players,
+    Matches,
+    Tournaments,
+    Rankings,
+    BO3SyncRuns,
+    Media,
+    Search,
+  ],
+  endpoints: [searchEndpoint, bo3SyncHealthEndpoint, bo3SyncTriggerEndpoint],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
@@ -89,6 +123,20 @@ export default buildConfig({
         return authHeader === `Bearer ${process.env.CRON_SECRET}`
       },
     },
-    tasks: [],
+    autoRun: enableBO3AutoRun
+      ? [
+          {
+            queue: 'bo3-live',
+            cron: '0 * * * * *',
+            limit: 20,
+          },
+          {
+            queue: 'bo3-default',
+            cron: '0 */2 * * * *',
+            limit: 50,
+          },
+        ]
+      : [],
+    tasks: [bo3SyncMatchesTask],
   },
 })

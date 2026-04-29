@@ -42,6 +42,7 @@ export const Posts: CollectionConfig<'posts'> = {
     title: true,
     slug: true,
     categories: true,
+    featured: true,
     meta: {
       image: true,
       description: true,
@@ -131,6 +132,14 @@ export const Posts: CollectionConfig<'posts'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+            },
+            {
+              name: 'featured',
+              type: 'checkbox',
+              label: 'Notícia de Destaque',
+              admin: {
+                position: 'sidebar',
+              },
             },
           ],
           label: 'Meta',

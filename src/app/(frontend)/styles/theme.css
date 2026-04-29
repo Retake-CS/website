@@ -1,0 +1,111 @@
+:root {
+  /* Cores principais RCS */
+  --rcs-sec: #1e1e1e;
+  --rcs-sec-50: #eaeaea;
+  --rcs-sec-100: #d4d4d4;
+  --rcs-sec-200: #a9a9a9;
+  --rcs-sec-300: #7e7e7e;
+  --rcs-sec-400: #535353;
+  --rcs-sec-500: #292929;
+  --rcs-sec-600: #1e1e1e;
+  --rcs-sec-700: #191919;
+  --rcs-sec-800: #121212;
+  --rcs-sec-900: #0c0c0c;
+
+  --rcs-bg: #ebebeb;
+  --rcs-bg-50: #ffffff;
+  --rcs-bg-100: #fafafa;
+  --rcs-bg-200: #f5f5f5;
+  --rcs-bg-300: #f0f0f0;
+  --rcs-bg-400: #ebebeb;
+  --rcs-bg-500: #e0e0e0;
+  --rcs-bg-600: #d6d6d6;
+  --rcs-bg-700: #c2c2c2;
+  --rcs-bg-800: #adadad;
+  --rcs-bg-900: #999999;
+
+  --rcs-cta: #d39521;
+  --rcs-cta-50: #fef9ef;
+  --rcs-cta-100: #fdf3de;
+  --rcs-cta-200: #fbe7bd;
+  --rcs-cta-300: #f8d48c;
+  --rcs-cta-400: #f4be5b;
+  --rcs-cta-500: #edad3a;
+  --rcs-cta-600: #d39521;
+  --rcs-cta-700: #b07418;
+  --rcs-cta-800: #8c5a18;
+  --rcs-cta-900: #734a19;
+
+  /* Suporte para gradientes de opacidade - valores RGB */
+  --rcs-sec-rgb: 30, 30, 30;
+  --rcs-sec-50-rgb: 234, 234, 234;
+  --rcs-sec-100-rgb: 212, 212, 212;
+  --rcs-sec-200-rgb: 169, 169, 169;
+  --rcs-sec-300-rgb: 126, 126, 126;
+  --rcs-sec-400-rgb: 83, 83, 83;
+  --rcs-sec-500-rgb: 41, 41, 41;
+  --rcs-sec-600-rgb: 30, 30, 30;
+  --rcs-sec-700-rgb: 25, 25, 25;
+  --rcs-sec-800-rgb: 18, 18, 18;
+  --rcs-sec-900-rgb: 12, 12, 12;
+
+  --rcs-bg-rgb: 235, 235, 235;
+  --rcs-bg-50-rgb: 255, 255, 255;
+  --rcs-bg-100-rgb: 250, 250, 250;
+  --rcs-bg-200-rgb: 245, 245, 245;
+  --rcs-bg-300-rgb: 240, 240, 240;
+  --rcs-bg-400-rgb: 235, 235, 235;
+  --rcs-bg-500-rgb: 224, 224, 224;
+  --rcs-bg-600-rgb: 214, 214, 214;
+  --rcs-bg-700-rgb: 194, 194, 194;
+  --rcs-bg-800-rgb: 173, 173, 173;
+  --rcs-bg-900-rgb: 153, 153, 153;
+  
+  --rcs-cta-rgb: 211, 149, 33;
+  --rcs-cta-50-rgb: 254, 249, 239;
+  --rcs-cta-100-rgb: 253, 243, 222;
+  --rcs-cta-200-rgb: 251, 231, 189;
+  --rcs-cta-300-rgb: 248, 212, 140;
+  --rcs-cta-400-rgb: 244, 190, 91;
+  --rcs-cta-500-rgb: 237, 173, 58;
+  --rcs-cta-600-rgb: 211, 149, 33;
+  --rcs-cta-700-rgb: 176, 116, 24;
+  --rcs-cta-800-rgb: 140, 90, 24;
+  --rcs-cta-900-rgb: 115, 74, 25;
+
+  /* Mapeamento para DaisyUI */
+  --color-primary: var(--rcs-bg);
+  --color-secondary: var(--rcs-sec);
+  --color-accent: var(--rcs-cta);
+  
+  --color-neutral: #3d4451;
+  --color-base-100: var(--rcs-sec);
+  --color-base-200: var(--rcs-sec-500);
+  --color-base-300: var(--rcs-sec-400);
+  --color-base-content: var(--rcs-bg);
+  
+  --gradient-from: var(--rcs-sec);
+  --gradient-to: transparent;
+  
+  --color-info: #3abff8;
+  --color-success: #36d399;
+  --color-warning: #fbbd23;
+  --color-error: var(--rcs-cta);
+}
+
+/* Tema escuro (padrão) */
+.theme-rcs {
+  /* Placeholder para tema RCS */
+  color: inherit;
+}
+
+/* Tema claro (opcional) */
+.theme-light {
+  --color-primary: #ffffff;
+  --color-secondary: #f0f0f0;
+  --color-accent: var(--rcs-cta);
+  --color-base-100: #ffffff;
+  --color-base-200: #f0f0f0;
+  --color-base-300: #e0e0e0;
+  --color-base-content: #1e1e1e;
+}

@@ -69,9 +69,16 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
-    media: Media;
     categories: Category;
     users: User;
+    teams: Team;
+    players: Player;
+    matches: Match;
+    tournaments: Tournament;
+    rankings: Ranking;
+    'bo3-sync-runs': Bo3SyncRun;
+    media: Media;
+    'semantic-search': SemanticSearch;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -85,9 +92,16 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    teams: TeamsSelect<false> | TeamsSelect<true>;
+    players: PlayersSelect<false> | PlayersSelect<true>;
+    matches: MatchesSelect<false> | MatchesSelect<true>;
+    tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
+    rankings: RankingsSelect<false> | RankingsSelect<true>;
+    'bo3-sync-runs': Bo3SyncRunsSelect<false> | Bo3SyncRunsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    'semantic-search': SemanticSearchSelect<false> | SemanticSearchSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -98,15 +112,17 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {
     header: Header;
     footer: Footer;
+    'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -114,6 +130,7 @@ export interface Config {
   };
   jobs: {
     tasks: {
+      bo3SyncMatches: TaskBo3SyncMatches;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -146,7 +163,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
+  id: number;
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
@@ -173,11 +190,11 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null);
             url?: string | null;
             label: string;
@@ -189,7 +206,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (string | null) | Media;
+    media?: (number | null) | Media;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -197,7 +214,7 @@ export interface Page {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -212,9 +229,9 @@ export interface Page {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: string;
+  id: number;
   title: string;
-  heroImage?: (string | null) | Media;
+  heroImage?: (number | null) | Media;
   content: {
     root: {
       type: string;
@@ -230,18 +247,19 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (string | Post)[] | null;
-  categories?: (string | Category)[] | null;
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  featured?: boolean | null;
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (string | User)[] | null;
+  authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -259,23 +277,8 @@ export interface Post {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -296,7 +299,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    square?: {
+    card?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -304,39 +307,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    small?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    medium?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xlarge?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    og?: {
+    hero?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -351,14 +322,14 @@ export interface Media {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: string;
+  id: number;
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (string | null) | Category;
+  parent?: (number | null) | Category;
   breadcrumbs?:
     | {
-        doc?: (string | null) | Category;
+        doc?: (number | null) | Category;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -372,7 +343,7 @@ export interface Category {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   name?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -420,11 +391,11 @@ export interface CallToActionBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -470,11 +441,11 @@ export interface ContentBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -495,7 +466,7 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: string | Media;
+  media: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -522,12 +493,12 @@ export interface ArchiveBlock {
   } | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
-  categories?: (string | Category)[] | null;
+  categories?: (number | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
         relationTo: 'posts';
-        value: string | Post;
+        value: number | Post;
       }[]
     | null;
   id?: string | null;
@@ -539,7 +510,7 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
-  form: string | Form;
+  form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -565,7 +536,7 @@ export interface FormBlock {
  * via the `definition` "forms".
  */
 export interface Form {
-  id: string;
+  id: number;
   title: string;
   fields?:
     | (
@@ -736,10 +707,252 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams".
+ */
+export interface Team {
+  id: number;
+  externalTeamId: number;
+  slug?: string | null;
+  name: string;
+  shortName?: string | null;
+  logo?: (number | null) | Media;
+  imageUrl?: string | null;
+  country?: string | null;
+  countryId?: number | null;
+  ranking?: number | null;
+  founded?: string | null;
+  region?: string | null;
+  coach?: string | null;
+  players?: (number | Player)[] | null;
+  stats?: {
+    matchesPlayed?: number | null;
+    wins?: number | null;
+    losses?: number | null;
+    winRate?: number | null;
+    averageRating?: number | null;
+    mapsPlayed?: number | null;
+    roundsWon?: number | null;
+    roundsLost?: number | null;
+  };
+  achievements?:
+    | {
+        title?: string | null;
+        date?: string | null;
+        importance?: ('major' | 'premier' | 'regional') | null;
+        id?: string | null;
+      }[]
+    | null;
+  socialMedia?: {
+    twitter?: string | null;
+    instagram?: string | null;
+    website?: string | null;
+  };
+  source?: string | null;
+  lastSyncedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "players".
+ */
+export interface Player {
+  id: number;
+  name: string;
+  nickname: string;
+  avatar?: (number | null) | Media;
+  country: string;
+  age?: number | null;
+  role?: ('IGL' | 'Entry Fragger' | 'AWPer' | 'Support' | 'Lurker') | null;
+  joinDate?: string | null;
+  team?: (number | null) | Team;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "matches".
+ */
+export interface Match {
+  externalMatchId: string;
+  id: string;
+  status: 'completed' | 'live' | 'upcoming' | 'postponed';
+  bo3Status?: string | null;
+  tier?: string | null;
+  disciplineId?: number | null;
+  date?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  time?: string | null;
+  format?: string | null;
+  finalScore?: {
+    team1?: number | null;
+    team2?: number | null;
+  };
+  team1?: (number | null) | Team;
+  team2?: (number | null) | Team;
+  tournament?: (number | null) | Tournament;
+  team1Name?: string | null;
+  team2Name?: string | null;
+  tournamentName?: string | null;
+  team1ExternalId?: number | null;
+  team2ExternalId?: number | null;
+  tournamentExternalId?: number | null;
+  raw?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  maps?:
+    | {
+        mapName: string;
+        status?: string | null;
+        team1Score?: number | null;
+        team2Score?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  statusTransitions?:
+    | {
+        fromStatus?: string | null;
+        toStatus: string;
+        changedAt: string;
+        source?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  syncMeta?: {
+    firstSeenAt?: string | null;
+    lastStatusChangeAt?: string | null;
+    lastLiveSeenAt?: string | null;
+    dataCompletenessScore?: number | null;
+    missingCriticalFields?:
+      | {
+          field: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  lastSyncedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tournaments".
+ */
+export interface Tournament {
+  id: number;
+  externalTournamentId: number;
+  slug?: string | null;
+  name: string;
+  status?: string | null;
+  tier?: string | null;
+  tierRank?: number | null;
+  stage?: string | null;
+  importance?: ('high' | 'medium' | 'low') | null;
+  prizePool?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  location?: string | null;
+  organizer?: string | null;
+  source?: string | null;
+  lastSyncedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rankings".
+ */
+export interface Ranking {
+  id: number;
+  position: number;
+  team: number | Team;
+  points: number;
+  change: number;
+  trend: 'up' | 'down' | 'stable';
+  region: 'mundial' | 'europe' | 'americas' | 'asia' | 'oceania';
+  country: string;
+  lastUpdated: string;
+  /**
+   * Se o ranking está ativo e deve ser exibido
+   */
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bo3-sync-runs".
+ */
+export interface Bo3SyncRun {
+  id: number;
+  mode: 'live-priority' | 'full' | 'date-only';
+  date?: string | null;
+  startedAt: string;
+  finishedAt: string;
+  durationMs: number;
+  fetched: number;
+  processed: number;
+  created: number;
+  updated: number;
+  failed: number;
+  endpointBreakdown?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  endpointMetrics?:
+    | {
+        endpoint: string;
+        status: string;
+        fetchedCount: number;
+        durationMs: number;
+        retryCount: number;
+        circuitOpen?: boolean | null;
+        errorMessage?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  errorMessage?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "semantic-search".
+ */
+export interface SemanticSearch {
+  id: number;
+  query: string;
+  results?:
+    | {
+        title?: string | null;
+        content?: string | null;
+        url?: string | null;
+        score?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  timestamp?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: string;
+  id: number;
   /**
    * You will need to rebuild the website when changing this field.
    */
@@ -749,11 +962,11 @@ export interface Redirect {
     reference?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null);
     url?: string | null;
   };
@@ -765,8 +978,8 @@ export interface Redirect {
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: string;
-  form: string | Form;
+  id: number;
+  form: number | Form;
   submissionData?:
     | {
         field: string;
@@ -784,18 +997,18 @@ export interface FormSubmission {
  * via the `definition` "search".
  */
 export interface Search {
-  id: string;
+  id: number;
   title?: string | null;
   priority?: number | null;
   doc: {
     relationTo: 'posts';
-    value: string | Post;
+    value: number | Post;
   };
   slug?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
   categories?:
     | {
@@ -813,7 +1026,7 @@ export interface Search {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: string;
+  id: number;
   /**
    * Input data provided to the job
    */
@@ -860,7 +1073,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: 'inline' | 'bo3SyncMatches' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -893,10 +1106,19 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'bo3SyncMatches' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
+  meta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -905,52 +1127,80 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'pages';
-        value: string | Page;
+        value: number | Page;
       } | null)
     | ({
         relationTo: 'posts';
-        value: string | Post;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: string | Media;
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'categories';
-        value: string | Category;
+        value: number | Category;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'teams';
+        value: number | Team;
+      } | null)
+    | ({
+        relationTo: 'players';
+        value: number | Player;
+      } | null)
+    | ({
+        relationTo: 'matches';
+        value: string | Match;
+      } | null)
+    | ({
+        relationTo: 'tournaments';
+        value: number | Tournament;
+      } | null)
+    | ({
+        relationTo: 'rankings';
+        value: number | Ranking;
+      } | null)
+    | ({
+        relationTo: 'bo3-sync-runs';
+        value: number | Bo3SyncRun;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'semantic-search';
+        value: number | SemanticSearch;
       } | null)
     | ({
         relationTo: 'redirects';
-        value: string | Redirect;
+        value: number | Redirect;
       } | null)
     | ({
         relationTo: 'forms';
-        value: string | Form;
+        value: number | Form;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: string | FormSubmission;
+        value: number | FormSubmission;
       } | null)
     | ({
         relationTo: 'search';
-        value: string | Search;
+        value: number | Search;
       } | null)
     | ({
         relationTo: 'payload-jobs';
-        value: string | PayloadJob;
+        value: number | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -960,10 +1210,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -983,7 +1233,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -1134,6 +1384,7 @@ export interface PostsSelect<T extends boolean = true> {
   content?: T;
   relatedPosts?: T;
   categories?: T;
+  featured?: T;
   meta?:
     | T
     | {
@@ -1154,99 +1405,6 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  caption?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        square?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        small?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        medium?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        large?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xlarge?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        og?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1290,6 +1448,283 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams_select".
+ */
+export interface TeamsSelect<T extends boolean = true> {
+  externalTeamId?: T;
+  slug?: T;
+  name?: T;
+  shortName?: T;
+  logo?: T;
+  imageUrl?: T;
+  country?: T;
+  countryId?: T;
+  ranking?: T;
+  founded?: T;
+  region?: T;
+  coach?: T;
+  players?: T;
+  stats?:
+    | T
+    | {
+        matchesPlayed?: T;
+        wins?: T;
+        losses?: T;
+        winRate?: T;
+        averageRating?: T;
+        mapsPlayed?: T;
+        roundsWon?: T;
+        roundsLost?: T;
+      };
+  achievements?:
+    | T
+    | {
+        title?: T;
+        date?: T;
+        importance?: T;
+        id?: T;
+      };
+  socialMedia?:
+    | T
+    | {
+        twitter?: T;
+        instagram?: T;
+        website?: T;
+      };
+  source?: T;
+  lastSyncedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "players_select".
+ */
+export interface PlayersSelect<T extends boolean = true> {
+  name?: T;
+  nickname?: T;
+  avatar?: T;
+  country?: T;
+  age?: T;
+  role?: T;
+  joinDate?: T;
+  team?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "matches_select".
+ */
+export interface MatchesSelect<T extends boolean = true> {
+  externalMatchId?: T;
+  id?: T;
+  status?: T;
+  bo3Status?: T;
+  tier?: T;
+  disciplineId?: T;
+  date?: T;
+  startDate?: T;
+  endDate?: T;
+  time?: T;
+  format?: T;
+  finalScore?:
+    | T
+    | {
+        team1?: T;
+        team2?: T;
+      };
+  team1?: T;
+  team2?: T;
+  tournament?: T;
+  team1Name?: T;
+  team2Name?: T;
+  tournamentName?: T;
+  team1ExternalId?: T;
+  team2ExternalId?: T;
+  tournamentExternalId?: T;
+  raw?: T;
+  maps?:
+    | T
+    | {
+        mapName?: T;
+        status?: T;
+        team1Score?: T;
+        team2Score?: T;
+        id?: T;
+      };
+  statusTransitions?:
+    | T
+    | {
+        fromStatus?: T;
+        toStatus?: T;
+        changedAt?: T;
+        source?: T;
+        id?: T;
+      };
+  syncMeta?:
+    | T
+    | {
+        firstSeenAt?: T;
+        lastStatusChangeAt?: T;
+        lastLiveSeenAt?: T;
+        dataCompletenessScore?: T;
+        missingCriticalFields?:
+          | T
+          | {
+              field?: T;
+              id?: T;
+            };
+      };
+  lastSyncedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tournaments_select".
+ */
+export interface TournamentsSelect<T extends boolean = true> {
+  externalTournamentId?: T;
+  slug?: T;
+  name?: T;
+  status?: T;
+  tier?: T;
+  tierRank?: T;
+  stage?: T;
+  importance?: T;
+  prizePool?: T;
+  startDate?: T;
+  endDate?: T;
+  location?: T;
+  organizer?: T;
+  source?: T;
+  lastSyncedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rankings_select".
+ */
+export interface RankingsSelect<T extends boolean = true> {
+  position?: T;
+  team?: T;
+  points?: T;
+  change?: T;
+  trend?: T;
+  region?: T;
+  country?: T;
+  lastUpdated?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bo3-sync-runs_select".
+ */
+export interface Bo3SyncRunsSelect<T extends boolean = true> {
+  mode?: T;
+  date?: T;
+  startedAt?: T;
+  finishedAt?: T;
+  durationMs?: T;
+  fetched?: T;
+  processed?: T;
+  created?: T;
+  updated?: T;
+  failed?: T;
+  endpointBreakdown?: T;
+  endpointMetrics?:
+    | T
+    | {
+        endpoint?: T;
+        status?: T;
+        fetchedCount?: T;
+        durationMs?: T;
+        retryCount?: T;
+        circuitOpen?: T;
+        errorMessage?: T;
+        id?: T;
+      };
+  errorMessage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        hero?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "semantic-search_select".
+ */
+export interface SemanticSearchSelect<T extends boolean = true> {
+  query?: T;
+  results?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        url?: T;
+        score?: T;
+        id?: T;
+      };
+  timestamp?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1511,6 +1946,7 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1551,7 +1987,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "header".
  */
 export interface Header {
-  id: string;
+  id: number;
   navItems?:
     | {
         link: {
@@ -1560,11 +1996,11 @@ export interface Header {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -1580,7 +2016,7 @@ export interface Header {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: string;
+  id: number;
   navItems?:
     | {
         link: {
@@ -1589,17 +2025,63 @@ export interface Footer {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
         };
         id?: string | null;
       }[]
+    | null;
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'github' | 'discord' | 'twitch';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyright?: string | null;
+  additionalLinks?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats".
+ */
+export interface PayloadJobsStat {
+  id: number;
+  stats?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1646,9 +2128,55 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  copyright?: T;
+  additionalLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats_select".
+ */
+export interface PayloadJobsStatsSelect<T extends boolean = true> {
+  stats?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskBo3SyncMatches".
+ */
+export interface TaskBo3SyncMatches {
+  input: {
+    requestedBy?: string | null;
+    date?: string | null;
+    batchSize?: number | null;
+    concurrency?: number | null;
+    mode?: string | null;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1661,14 +2189,14 @@ export interface TaskSchedulePublish {
     doc?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null);
     global?: string | null;
-    user?: (string | null) | User;
+    user?: (number | null) | User;
   };
   output?: unknown;
 }

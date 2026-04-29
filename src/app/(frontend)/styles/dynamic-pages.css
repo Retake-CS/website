@@ -1,0 +1,570 @@
+/* Custom styles for dynamic pages */
+.page-content {
+  background-color: var(--rcs-bg);
+  color: var(--rcs-sec);
+}
+
+/* General override for all text elements in page-content */
+.page-content,
+.page-content * {
+  color: var(--rcs-sec) !important;
+}
+
+/* Specific overrides for links */
+.page-content a,
+.page-content a:hover,
+.page-content a:focus,
+.page-content a:active {
+  color: var(--rcs-cta) !important;
+}
+
+.page-content a:hover {
+  color: var(--rcs-cta-600) !important;
+}
+
+/* Ensure headings are properly colored */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  color: var(--rcs-sec) !important;
+}
+
+/* Ensure paragraphs and text elements are properly colored */
+.page-content p,
+.page-content span,
+.page-content div,
+.page-content li,
+.page-content strong,
+.page-content em {
+  color: var(--rcs-sec) !important;
+}
+
+/* Hero adjustments for dynamic pages */
+.page-content .hero-section {
+  position: relative;
+}
+
+/* Block spacing and layout adjustments */
+.page-content .my-16 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .my-16 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content .my-16 {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+}
+
+/* Content block improvements */
+.page-content .container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Rich text styling */
+.page-content .rich-text {
+  color: var(--fallback-bc,oklch(var(--bc)));
+  line-height: 1.625;
+}
+
+.page-content .rich-text h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .rich-text h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content .rich-text h1 {
+    font-size: 3rem;
+  }
+}
+
+.page-content .rich-text h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .rich-text h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.page-content .rich-text h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .rich-text h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.page-content .rich-text h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .rich-text h4 {
+    font-size: 1.25rem;
+  }
+}
+
+.page-content .rich-text p {
+  margin-bottom: 1rem;
+  color: oklch(from var(--fallback-bc,oklch(var(--bc))) l c h / 0.9);
+  line-height: 1.625;
+}
+
+.page-content .rich-text ul,
+.page-content .rich-text ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  color: oklch(from var(--fallback-bc,oklch(var(--bc))) l c h / 0.9);
+}
+
+.page-content .rich-text li {
+  margin-bottom: 0.5rem;
+}
+
+.page-content .rich-text a {
+  color: hsl(var(--rcs-cta));
+  transition: color 0.2s;
+}
+
+.page-content .rich-text a:hover {
+  color: oklch(from hsl(var(--rcs-cta)) l c h / 0.8);
+}
+
+.page-content .rich-text strong,
+.page-content .rich-text b {
+  font-weight: 600;
+  color: hsl(var(--rcs-sec));
+}
+
+.page-content .rich-text blockquote {
+  border-left: 4px solid hsl(var(--rcs-cta));
+  padding-left: 1rem;
+  font-style: italic;
+  color: oklch(from var(--fallback-bc,oklch(var(--bc))) l c h / 0.8);
+  margin: 1.5rem 0;
+}
+
+/* Call to Action block styling */
+.page-content .cta-block {
+  background-color: hsl(var(--rcs-sec));
+  color: hsl(var(--rcs-bg));
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .page-content .cta-block {
+    padding: 2rem;
+  }
+}
+
+.page-content .cta-block h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .cta-block h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.page-content .cta-block p {
+  margin-bottom: 1.5rem;
+  color: oklch(from hsl(var(--rcs-bg)) l c h / 0.9);
+}
+
+.page-content .cta-block .btn {
+  background-color: hsl(var(--rcs-cta));
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.page-content .cta-block .btn:hover {
+  background-color: oklch(from hsl(var(--rcs-cta)) l c h / 0.9);
+}
+
+/* Media block styling */
+.page-content .media-block {
+  margin: 2rem 0;
+}
+
+.page-content .media-block img,
+.page-content .media-block video {
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  width: 100%;
+  height: auto;
+}
+
+/* Form block styling */
+.page-content .form-block {
+  background-color: var(--fallback-b2,oklch(var(--b2)));
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .page-content .form-block {
+    padding: 2rem;
+  }
+}
+
+.page-content .form-block h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .form-block h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.page-content .form-block .form-group {
+  margin-bottom: 1rem;
+}
+
+.page-content .form-block label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--fallback-bc,oklch(var(--bc)));
+  margin-bottom: 0.5rem;
+}
+
+.page-content .form-block input,
+.page-content .form-block textarea,
+.page-content .form-block select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--fallback-b3,oklch(var(--b3)));
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.page-content .form-block input:focus,
+.page-content .form-block textarea:focus,
+.page-content .form-block select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--rcs-cta));
+  border-color: transparent;
+}
+
+.page-content .form-block textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.page-content .form-block .btn-submit {
+  background-color: hsl(var(--rcs-cta));
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .page-content .form-block .btn-submit {
+    width: auto;
+  }
+}
+
+.page-content .form-block .btn-submit:hover {
+  background-color: oklch(from hsl(var(--rcs-cta)) l c h / 0.9);
+}
+
+/* Archive block styling */
+.page-content .archive-block {
+  margin: 2rem 0;
+}
+
+.page-content .archive-block .archive-item {
+  background-color: var(--fallback-b1,oklch(var(--b1)));
+  border: 1px solid var(--fallback-b3,oklch(var(--b3)));
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+@media (min-width: 768px) {
+  .page-content .archive-block .archive-item {
+    padding: 1.5rem;
+  }
+}
+
+.page-content .archive-block .archive-item:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.payload-richtext {
+    color: var(--rcs-sec) !important;
+}
+
+.page-content .archive-block .archive-item h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--rcs-sec));
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-content .archive-block .archive-item h3 {
+    font-size: 1.25rem;
+  }
+}
+
+.page-content .archive-block .archive-item p {
+  color: oklch(from var(--fallback-bc,oklch(var(--bc))) l c h / 0.8);
+  margin-bottom: 0.75rem;
+}
+
+.page-content .archive-block .archive-item .btn {
+  color: hsl(var(--rcs-cta));
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.page-content .archive-block .archive-item .btn:hover {
+  color: oklch(from hsl(var(--rcs-cta)) l c h / 0.8);
+}
+
+/* Page Title Section */
+.page-title-section {
+  background-color: var(--rcs-bg);
+  padding: 2rem 0;
+}
+
+.page-title-section .title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-title-section .bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--rcs-cta);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.page-title-section:hover .bullet {
+  background-color: var(--rcs-cta-600);
+}
+
+.page-title-section h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: var(--rcs-sec);
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.page-title-section:hover h1 {
+  color: var(--rcs-cta);
+}
+
+.page-title-section p {
+  color: var(--rcs-sec-400);
+  font-size: 0.875rem;
+  margin-left: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.page-title-section:hover p {
+  color: var(--rcs-sec-600);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-content .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .page-content .rich-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-content .rich-text h2 {
+    font-size: 1.25rem;
+  }
+
+  .page-content .cta-block,
+  .page-content .form-block {
+    padding: 1rem;
+  }
+}
+
+/* RichText specific overrides for dynamic pages */
+.page-content .payload-richtext {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .payload-richtext h1,
+.page-content .payload-richtext h2,
+.page-content .payload-richtext h3,
+.page-content .payload-richtext h4,
+.page-content .payload-richtext h5,
+.page-content .payload-richtext h6 {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .payload-richtext p,
+.page-content .payload-richtext li,
+.page-content .payload-richtext span,
+.page-content .payload-richtext div {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .payload-richtext a {
+  color: var(--rcs-cta) !important;
+}
+
+.page-content .payload-richtext a:hover {
+  color: var(--rcs-cta-600) !important;
+}
+
+/* Content block specific overrides */
+.page-content .content-rich-text {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .content-rich-text * {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .content-rich-text a {
+  color: var(--rcs-cta) !important;
+}
+
+.page-content .content-rich-text a:hover {
+  color: var(--rcs-cta-600) !important;
+}
+
+/* Override any prose styles that might conflict */
+.page-content .prose {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .prose h1,
+.page-content .prose h2,
+.page-content .prose h3,
+.page-content .prose h4,
+.page-content .prose h5,
+.page-content .prose h6 {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .prose p,
+.page-content .prose li,
+.page-content .prose span {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .prose a {
+  color: var(--rcs-cta) !important;
+}
+
+.page-content .prose a:hover {
+  color: var(--rcs-cta-600) !important;
+}
+
+/* CTA block specific overrides */
+.cta-block {
+  background-color: var(--rcs-bg);
+  color: var(--rcs-sec);
+}
+
+.page-content .cta-rich-text {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .cta-rich-text * {
+  color: var(--rcs-sec) !important;
+}
+
+/* Form block specific overrides */
+.form-block {
+  background-color: var(--rcs-bg);
+  color: var(--rcs-sec);
+}
+
+.page-content .form-intro-text,
+.page-content .form-confirmation-text {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .form-intro-text *,
+.page-content .form-confirmation-text * {
+  color: var(--rcs-sec) !important;
+}
+
+/* Hero RichText overrides for dynamic pages */
+.page-content .hero-rich-text {
+  color: var(--rcs-sec) !important;
+}
+
+.page-content .hero-rich-text * {
+  color: var(--rcs-sec) !important;
+}

@@ -1,0 +1,61 @@
+/* Esconder a barra de rolagem para todos os navegadores */
+.scroll-container {
+  -ms-overflow-style: none; /* Internet Explorer e Edge */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Scroll suave em iOS */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
+}
+
+/* Estilos para melhorar a experiência de arraste */
+.scroll-container {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: pan-x; /* Permitir gesture nativo no eixo x para dispositivos touch */
+  will-change: scroll-position; /* Otimização de performance */
+}
+
+.scroll-container:active {
+  cursor: grabbing;
+}
+
+/* Efeito de sombra nas bordas para indicar que há mais conteúdo */
+.scroll-container {
+  position: relative;
+}
+
+.scroll-container::before,
+.scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  opacity: 0!important;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+
+}
+
+.scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(30, 30, 30, 0.5), transparent);
+}
+
+.scroll-container::after {
+  right: 0;
+  opacity: 0!important;
+  background: linear-gradient(to left, rgba(30, 30, 30, 0.0), transparent);
+}
+
+/* Adicionando transições para movimento mais suave */
+.scroll-container > div {
+  transition: transform 0.05s ease-out;
+}
