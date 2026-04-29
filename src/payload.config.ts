@@ -16,8 +16,6 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
-/// ---
-
 // Import collections
 import Teams from './collections/Teams'
 import Players from './collections/Players'
@@ -36,12 +34,16 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const shouldPushSchema = process.env.PAYLOAD_PUSH_SCHEMA === 'true' && process.env.VITEST !== 'true'
 
-// Production Turso database — fallback when DATABASE_URI env var is not set
-const TURSO_URL =
-  'libsql://retakecs-retakecs.aws-us-west-2.turso.io?authToken=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Nzc0NjQ1NzcsImlkIjoiMDE5ZGQ5MjQtMTcwMS03OTBjLWE4MjAtYTkyNmQ0YzY4MGNkIiwicmlkIjoiMjc0ZDQ5YzQtMDdiZS00YzkxLTlmNmMtZjczYjE5YWY5MTg3In0.lOg5EBzf_waYFg0TUHooGw7mRpfprbCB63Go1CucWlS5gttmEkh9EgXuG4Ht1f0uQHhLALyKhpzkOLv02awaAQ'
+if (!process.env.DATABASE_URI) {
+  throw new Error(
+    'DATABASE_URI env var is required. Set it in Vercel → Settings → Environment Variables.\n' +
+    'Format: libsql://<db-name>.turso.io?authToken=<token>'
+  )
+}
 
-const PAYLOAD_SECRET_FALLBACK = 'retakecs-payload-secret-2026-xk9mQp3jRs'
-const CRON_SECRET_FALLBACK = 'retakecs-cron-2026-mK7pZ'
+if (!process.env.PAYLOAD_SECRET) {
+  throw new Error('PAYLOAD_SECRET env var is required.')
+}
 
 export default buildConfig({
   admin: {
@@ -64,8 +66,7 @@ export default buildConfig({
   editor: defaultLexical,
   db: sqliteAdapter({
     client: {
-      // Use env var if set (local dev), otherwise use Turso production DB
-      url: process.env.DATABASE_URI || TURSO_URL,
+      url: process.env.DATABASE_URI,
     },
     push: shouldPushSchema,
   }),
@@ -89,7 +90,7 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET || PAYLOAD_SECRET_FALLBACK,
+  secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -99,8 +100,8 @@ export default buildConfig({
       run: ({ req }: { req: PayloadRequest }): boolean => {
         if (req.user) return true
         const authHeader = req.headers.get('authorization')
-        const secret = process.env.CRON_SECRET || CRON_SECRET_FALLBACK
-        return authHeader === `Bearer ${secret}`
+        const secret = process.env.CRON_SECRET ?? ''
+        return !!secret && authHeader === `Bearer ${secret}`
       },
     },
     autoRun: [
