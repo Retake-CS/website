@@ -180,11 +180,6 @@ const NewsDetail = () => {
                 className="w-full h-auto object-cover"
                 loading="lazy"
               />
-              {node.value?.caption && (
-                <figcaption className="bg-rcs-sec-800 text-rcs-bg-200 text-xs p-3 text-center">
-                  {node.value.caption}
-                </figcaption>
-              )}
             </figure>
           );
 
@@ -207,11 +202,6 @@ const NewsDetail = () => {
                   className="w-full h-auto object-cover"
                   loading="lazy"
                 />
-                {media.caption && (
-                  <figcaption className="bg-rcs-sec-800 text-rcs-bg-200 text-xs p-3 text-center">
-                    {media.caption}
-                  </figcaption>
-                )}
               </figure>
             );
           } else if (node.fields?.blockType === 'banner' && node.fields?.content) {
