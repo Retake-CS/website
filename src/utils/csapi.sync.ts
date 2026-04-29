@@ -55,7 +55,7 @@ async function syncRankings(payload: Payload) {
           team: teamId,
           points: rank.points,
           change: Math.abs(rank.rank_diff),
-          trend: rank.rank_diff < 0 ? 'up' : rank.rank_diff > 0 ? 'down' : 'stable',
+          trend: rank.rank_diff > 0 ? 'up' : rank.rank_diff < 0 ? 'down' : 'stable',
           region: 'mundial',
           country: 'N/A',
           lastUpdated: new Date(rankingsData.date),
@@ -115,6 +115,12 @@ async function syncMatches(payload: Payload, limit: number = 50) {
             team2: match.team2.score,
           },
           format: `BO${match.best_of}`,
+          maps: match.maps.map((m: any) => ({
+            mapName: m.name,
+            team1Score: m.team1_score,
+            team2Score: m.team2_score,
+            status: 'finished'
+          }))
         }
         
         const existingMatch = await payload.find({

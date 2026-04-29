@@ -5,6 +5,7 @@ interface Team {
   position: number;
   name: string;
   points: number;
+  trend: 'up' | 'down' | 'stable';
 }
 
 export const Ranking = () => {
@@ -13,7 +14,7 @@ export const Ranking = () => {
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        const response = await fetch('/api/rankings?limit=8');
+        const response = await fetch('/api/rankings?limit=8&sort=position');
         if (!response.ok) {
           throw new Error('Failed to fetch rankings');
         }
@@ -22,6 +23,7 @@ export const Ranking = () => {
           position: ranking.position,
           name: ranking.team?.name || 'Unknown Team',
           points: ranking.points,
+          trend: ranking.trend,
         }));
         setTopTeams(teams);
       } catch (error) {
@@ -82,13 +84,11 @@ export const Ranking = () => {
                     </a>
                   </td>
                   <td className="py-1.5 px-2 text-right font-medium">
-                    <a
-                      className="cursor-pointer"
-                      onMouseEnter={(e) => e.currentTarget.closest("tr")?.classList.add("text-rcs-cta")}
-                      onMouseLeave={(e) => e.currentTarget.closest("tr")?.classList.remove("text-rcs-cta")}
-                    >
-                      {team.points}
-                    </a>
+                    <div className="flex items-center justify-end gap-1">
+                      <span>{team.points}</span>
+                      {team.trend === 'up' && <span className="text-green-500 text-[10px]">▲</span>}
+                      {team.trend === 'down' && <span className="text-red-500 text-[10px]">▼</span>}
+                    </div>
                   </td>
                 </tr>
               ))}

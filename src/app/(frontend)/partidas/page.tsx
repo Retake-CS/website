@@ -42,10 +42,8 @@ interface PayloadMatch {
   format: string
   maps?: Array<{
     mapName: string
-    score?: {
-      team1: number
-      team2: number
-    }
+    team1Score?: number
+    team2Score?: number
   }>
   streamUrl?: string
 }

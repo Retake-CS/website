@@ -29,10 +29,8 @@ interface CSMatch {
   format: string
   maps?: Array<{
     mapName: string
-    score?: {
-      team1: number
-      team2: number
-    }
+    team1Score?: number
+    team2Score?: number
   }>
   streamUrl?: string
 }
@@ -298,7 +296,7 @@ export const CSMatchCard = ({ match }: CSMatchCardProps) => {
           <div className="text-center mt-2 pt-2 border-t border-rcs-sec-400/30">
             <div className="text-xs text-rcs-bg/80 font-medium">{match.maps?.[0]?.mapName}</div>
             <div className="text-xs text-rcs-bg/60">
-              {match.maps?.[0]?.score?.team1} - {match.maps?.[0]?.score?.team2}
+              {match.maps?.[0]?.team1Score} - {match.maps?.[0]?.team2Score}
             </div>
           </div>
         </div>
