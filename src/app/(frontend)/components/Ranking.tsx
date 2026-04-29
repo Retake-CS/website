@@ -1,6 +1,9 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
+// v2 — sem mock data, interface correta com trend
 interface Team {
   position: number
   name: string
@@ -22,7 +25,6 @@ export const Ranking = () => {
         setIsLoading(true)
         setError(null)
 
-        // Use relative URL — works in both dev and Vercel (same origin)
         const response = await fetch(
           '/api/rankings?limit=8&sort=position&where[isActive][equals]=true',
           { cache: 'no-store' },
@@ -45,7 +47,7 @@ export const Ranking = () => {
           shortName: ranking.team?.shortName,
           teamId: ranking.team?.id,
           points: ranking.points,
-          trend: ranking.trend ?? 'stable',
+          trend: (ranking.trend ?? 'stable') as 'up' | 'down' | 'stable',
           logoUrl: ranking.team?.logo?.url,
         }))
 
@@ -75,10 +77,7 @@ export const Ranking = () => {
           {isLoading && (
             <div className="space-y-2 py-2">
               {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse flex items-center gap-2 px-2 py-1"
-                >
+                <div key={i} className="animate-pulse flex items-center gap-2 px-2 py-1">
                   <div className="w-4 h-3 bg-rcs-sec-500/40 rounded" />
                   <div className="flex-1 h-3 bg-rcs-sec-500/40 rounded" />
                   <div className="w-8 h-3 bg-rcs-sec-500/40 rounded" />
