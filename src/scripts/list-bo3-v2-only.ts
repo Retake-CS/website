@@ -9,7 +9,7 @@ import {
   getTodayMatchesV2,
   extractMatchesFromV2Response,
   debugAPIV2Response,
-} from '../utils/bo3.requests.oldts'
+} from '../utils/bo3.requests'
 
 async function main() {
   console.log('🎮 BO3.gg API v2 Test Script')
@@ -32,9 +32,9 @@ async function main() {
 
         console.log(`   Found ${matches.length} S-tier finished matches`)
         console.log(`   Date: ${response.meta.date}`)
-        console.log(`   Teams available: ${Object.keys(response.included.teams).length}`)
+        console.log(`   Teams available: ${Object.keys(response.included?.teams || {}).length}`)
         console.log(
-          `   Tournaments available: ${Object.keys(response.included.tournaments).length}`,
+          `   Tournaments available: ${Object.keys(response.included?.tournaments || {}).length}`,
         )
 
         if (matches.length > 0) {

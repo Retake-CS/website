@@ -62,7 +62,7 @@ interface PayloadTournament {
   organizer?: string
 }
 
-export const CSMatches = () => {
+const CSMatches = () => {
   const [matches, setMatches] = useState<PayloadMatch[]>([])
   const [filteredMatches, setFilteredMatches] = useState<PayloadMatch[]>([])
   const [currentPage, setCurrentPage] = useState(1)

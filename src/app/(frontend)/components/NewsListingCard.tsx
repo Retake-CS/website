@@ -26,7 +26,7 @@ export const NewsListingCard = ({
   animate = false, 
   delay = 0 
 }: NewsListingCardProps) => {
-  const cardRef = useRef<HTMLAnchorElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (animate && cardRef.current) {

@@ -64,7 +64,7 @@ const TrendIndicator = ({ change, trend }: { change: number; trend: Ranking['tre
   )
 }
 
-export const TeamRankingsPage = () => {
+const TeamRankingsPage = () => {
   const [rankings, setRankings] = useState<Ranking[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedRegion, setSelectedRegion] = useState<RegionType>('mundial')

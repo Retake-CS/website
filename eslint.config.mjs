@@ -16,6 +16,8 @@ const eslintConfig = [
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@next/next/no-html-link-for-pages': 'warn',
+      '@next/next/no-document-import-in-page': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
@@ -31,7 +33,7 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ['.next/'],
+    ignores: ['.next/', 'src/app/(frontend)/pages_backup/'],
   },
 ]
 

@@ -30,7 +30,7 @@ interface NewsArticle {
   featured: boolean;
 }
 
-export const NewsListing = () => {
+const NewsListing = () => {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [filteredNews, setFilteredNews] = useState<NewsArticle[]>([]);
   const [currentPage, setCurrentPage] = useState(1);

@@ -5,7 +5,6 @@ import { getTodayMatches, getMatchesForDate } from '@/utils/bo3.requests'
 import { BO3Team, BO3Tournament, BO3EnrichedMatch } from '@/utils/bo3.types'
 
 export interface TeamProfile extends BO3Team {
-  id: string
   todayMatches: BO3EnrichedMatch[]
   upcomingMatches: BO3EnrichedMatch[]
   recentMatches: BO3EnrichedMatch[]
@@ -51,7 +50,7 @@ export async function getTeamsAndTournamentsView(date?: string): Promise<TeamsAn
 
   Object.entries(dailyMatches.teams).forEach(([id, team]) => {
     const teamMatches = dailyMatches.matches.filter(
-      (match) => match.team1 === id || match.team2 === id,
+      (match) => String(match.team1_id) === id || String(match.team2_id) === id,
     )
 
     const upcomingMatches = teamMatches.filter((match) => match.status === 'upcoming')
@@ -60,8 +59,8 @@ export async function getTeamsAndTournamentsView(date?: string): Promise<TeamsAn
     // Calculate stats
     const wins = recentMatches.filter(
       (match) =>
-        (match.team1 === id && match.team1_score > match.team2_score) ||
-        (match.team2 === id && match.team2_score > match.team1_score),
+        (String(match.team1_id) === id && match.team1_score > match.team2_score) ||
+        (String(match.team2_id) === id && match.team2_score > match.team1_score),
     ).length
 
     const losses = recentMatches.length - wins
@@ -73,7 +72,6 @@ export async function getTeamsAndTournamentsView(date?: string): Promise<TeamsAn
 
     teams[id] = {
       ...team,
-      id,
       todayMatches: teamMatches,
       upcomingMatches,
       recentMatches,
@@ -92,7 +90,7 @@ export async function getTeamsAndTournamentsView(date?: string): Promise<TeamsAn
   const tierDistribution: Record<string, number> = {}
 
   Object.entries(dailyMatches.tournaments).forEach(([id, tournament]) => {
-    const tournamentMatches = dailyMatches.matches.filter((match) => match.tournament === id)
+    const tournamentMatches = dailyMatches.matches.filter((match) => String(match.tournament_id) === id)
 
     const liveMatches = tournamentMatches.filter((match) => match.status === 'live').length
     const upcomingMatches = tournamentMatches.filter((match) => match.status === 'upcoming').length
@@ -101,8 +99,8 @@ export async function getTeamsAndTournamentsView(date?: string): Promise<TeamsAn
     // Get unique teams in this tournament
     const tournamentTeamIds = new Set<string>()
     tournamentMatches.forEach((match) => {
-      tournamentTeamIds.add(match.team1)
-      tournamentTeamIds.add(match.team2)
+      tournamentTeamIds.add(String(match.team1_id))
+      tournamentTeamIds.add(String(match.team2_id))
     })
 
     const tournamentTeams = Array.from(tournamentTeamIds)

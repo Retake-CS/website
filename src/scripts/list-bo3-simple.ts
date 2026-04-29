@@ -28,9 +28,9 @@ async function main() {
       const todayMatches = extractMatchesFromV2Response(todayResponse)
       console.log(`   Found ${todayMatches.length} matches for today`)
       console.log(`   Date: ${todayResponse.meta.date}`)
-      console.log(`   Teams available: ${Object.keys(todayResponse.included.teams).length}`)
+      console.log(`   Teams available: ${Object.keys(todayResponse.included?.teams || {}).length}`)
       console.log(
-        `   Tournaments available: ${Object.keys(todayResponse.included.tournaments).length}`,
+        `   Tournaments available: ${Object.keys(todayResponse.included?.tournaments || {}).length}`,
       )
 
       if (todayMatches.length > 0) {

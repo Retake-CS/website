@@ -1,28 +1,27 @@
+import { Endpoint } from 'payload'
 import { enqueuePayloadBO3SyncTask } from '@/scripts/bo3-sync.queue'
 
-const bo3SyncTriggerEndpoint = {
+const bo3SyncTriggerEndpoint: Endpoint = {
   path: '/bo3-sync/trigger',
   method: 'post',
-  handler: async (req: any, res: any) => {
+  handler: async (req) => {
     try {
-      const authHeader = req.headers.authorization || req.headers.get?.('authorization')
-      const expectedToken = process.env.CRON_SECRET
-        ? `Bearer ${process.env.CRON_SECRET}`
-        : undefined
+      const authHeader = req.headers.get('authorization')
+      const expectedToken = process.env.CRON_SECRET ? `Bearer ${process.env.CRON_SECRET}` : undefined
 
       const isAuthorized = Boolean(req.user) || (expectedToken && authHeader === expectedToken)
 
       if (!isAuthorized) {
-        return res.status(401).json({
-          error: 'Unauthorized',
-        })
+        return Response.json({ error: 'Unauthorized' }, { status: 401 })
       }
 
-      const body = (req.body || {}) as {
-        date?: string
-        mode?: 'live-priority' | 'full' | 'date-only'
-        batchSize?: number
-        concurrency?: number
+      let body: any = {}
+      if (req.json) {
+        try {
+          body = await req.json()
+        } catch (e) {
+          // Fallback for empty body
+        }
       }
 
       await enqueuePayloadBO3SyncTask({
@@ -36,14 +35,10 @@ const bo3SyncTriggerEndpoint = {
         },
       })
 
-      return res.status(202).json({
-        status: 'queued',
-      })
+      return Response.json({ status: 'queued' }, { status: 202 })
     } catch (error) {
       req.payload.logger.error('[bo3-sync] trigger endpoint failed', error)
-      return res.status(500).json({
-        error: 'Failed to enqueue BO3 sync task',
-      })
+      return Response.json({ error: 'Failed to enqueue BO3 sync task' }, { status: 500 })
     }
   },
 }
