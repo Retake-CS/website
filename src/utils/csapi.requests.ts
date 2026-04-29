@@ -1,69 +1,83 @@
-import { 
-  CSAPIMatchResult, 
-  CSAPIRanking, 
-  CSAPITeamDetail, 
+import {
+  CSAPIMatchResult,
+  CSAPIRanking,
+  CSAPITeamDetail,
   CSAPIPlayerDetail,
-  CSAPIItem
+  CSAPIItem,
 } from './csapi.types'
 
 const BASE_URL = 'https://api.csapi.de'
 
+// Timeout helper — evita travar serverless function
+function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 15000): Promise<Response> {
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeoutMs)
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(id))
+}
+
 async function fetchCSAPI<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  // Garante barra final onde a CSAPI exige
   const url = `${BASE_URL}${endpoint}`
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'Accept': 'application/json',
-      ...options.headers,
-    },
-  })
+  console.log(`[CSAPI] GET ${url}`)
+
+  let response: Response
+  try {
+    response = await fetchWithTimeout(url, {
+      ...options,
+      headers: {
+        Accept: 'application/json',
+        ...options.headers,
+      },
+    })
+  } catch (err: any) {
+    throw new Error(`CSAPI fetch error (${url}): ${err.message}`)
+  }
 
   if (!response.ok) {
-    throw new Error(`CSAPI error: ${response.status} ${response.statusText}`)
+    const body = await response.text().catch(() => '')
+    throw new Error(`CSAPI ${response.status} ${response.statusText} — ${url} — body: ${body.slice(0, 200)}`)
   }
 
   return response.json() as Promise<T>
 }
 
-/**
- * List latest matches
- */
-export async function getLatestMatches(limit: number = 10, offset: number = 0): Promise<CSAPIMatchResult[]> {
+/** Partidas recentes (completed) */
+export async function getLatestMatches(
+  limit = 10,
+  offset = 0,
+): Promise<CSAPIMatchResult[]> {
+  // A CSAPI pode retornar array ou { matches: [...] } — tratamos os dois casos em csapi.sync.ts
   return fetchCSAPI<CSAPIMatchResult[]>(`/matches/latest?limit=${limit}&offset=${offset}`)
 }
 
-/**
- * Get match details
- */
+/** Detalhes de uma partida */
 export async function getMatchDetails(matchId: number): Promise<CSAPIMatchResult> {
   return fetchCSAPI<CSAPIMatchResult>(`/matches/${matchId}`)
 }
 
-/**
- * Get regional rankings (Valve Regional Standings)
- */
+/** Rankings Valve (com barra final — obrigatório) */
 export async function getRankings(date?: string): Promise<CSAPIRanking> {
   const query = date ? `?date=${date}` : ''
-  return fetchCSAPI<CSAPIRanking>(`/rankings${query}`)
+  return fetchCSAPI<CSAPIRanking>(`/rankings/${query}`)
 }
 
-/**
- * Get team details
- */
+/** Detalhes de um time */
 export async function getTeam(teamId: number): Promise<CSAPITeamDetail> {
   return fetchCSAPI<CSAPITeamDetail>(`/teams/${teamId}`)
 }
 
-/**
- * Get player details
- */
+/** Stats de jogadores (top 100) */
+export async function getPlayerStats(): Promise<CSAPIPlayerDetail[]> {
+  // Endpoint real: /players/stats — pode retornar array ou wrapper
+  return fetchCSAPI<CSAPIPlayerDetail[]>(`/players/stats`)
+}
+
+/** Detalhes de um jogador */
 export async function getPlayer(playerId: number): Promise<CSAPIPlayerDetail> {
   return fetchCSAPI<CSAPIPlayerDetail>(`/players/${playerId}`)
 }
 
-/**
- * Search teams
- */
-export async function searchTeams(name: string, limit: number = 20): Promise<CSAPIItem[]> {
+/** Buscar times por nome */
+export async function searchTeams(name: string, limit = 20): Promise<CSAPIItem[]> {
   return fetchCSAPI<CSAPIItem[]>(`/teams/?name=${encodeURIComponent(name)}&limit=${limit}`)
 }
