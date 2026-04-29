@@ -27,8 +27,10 @@ import Rankings from './collections/Rankings'
 import Search from './collections/SemanticSearch'
 import Media from './collections/Media'
 
-// Import endpoints
 import searchEndpoint from './endpoints/semantic-search'
+
+// Import tasks
+import { csapiSyncTask } from './tasks/csapiSyncTask'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -117,7 +119,12 @@ export default buildConfig({
         return authHeader === `Bearer ${process.env.CRON_SECRET}`
       },
     },
-    autoRun: [],
-    tasks: [],
+    autoRun: [
+      {
+        cron: '0 */30 * * * *', // Every 30 minutes
+        queue: 'default',
+      },
+    ],
+    tasks: [csapiSyncTask],
   },
 })
