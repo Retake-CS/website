@@ -76,7 +76,6 @@ export interface Config {
     matches: Match;
     tournaments: Tournament;
     rankings: Ranking;
-    'bo3-sync-runs': Bo3SyncRun;
     media: Media;
     'semantic-search': SemanticSearch;
     redirects: Redirect;
@@ -99,7 +98,6 @@ export interface Config {
     matches: MatchesSelect<false> | MatchesSelect<true>;
     tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
     rankings: RankingsSelect<false> | RankingsSelect<true>;
-    'bo3-sync-runs': Bo3SyncRunsSelect<false> | Bo3SyncRunsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'semantic-search': SemanticSearchSelect<false> | SemanticSearchSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -117,12 +115,10 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
-    'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
-    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -130,7 +126,6 @@ export interface Config {
   };
   jobs: {
     tasks: {
-      bo3SyncMatches: TaskBo3SyncMatches;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -777,7 +772,6 @@ export interface Match {
   externalMatchId: string;
   id: string;
   status: 'completed' | 'live' | 'upcoming' | 'postponed';
-  bo3Status?: string | null;
   tier?: string | null;
   disciplineId?: number | null;
   date?: string | null;
@@ -883,47 +877,6 @@ export interface Ranking {
    * Se o ranking está ativo e deve ser exibido
    */
   isActive?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bo3-sync-runs".
- */
-export interface Bo3SyncRun {
-  id: number;
-  mode: 'live-priority' | 'full' | 'date-only';
-  date?: string | null;
-  startedAt: string;
-  finishedAt: string;
-  durationMs: number;
-  fetched: number;
-  processed: number;
-  created: number;
-  updated: number;
-  failed: number;
-  endpointBreakdown?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  endpointMetrics?:
-    | {
-        endpoint: string;
-        status: string;
-        fetchedCount: number;
-        durationMs: number;
-        retryCount: number;
-        circuitOpen?: boolean | null;
-        errorMessage?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  errorMessage?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1073,7 +1026,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'bo3SyncMatches' | 'schedulePublish';
+        taskSlug: 'inline' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -1106,19 +1059,10 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'bo3SyncMatches' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
-  meta?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1164,10 +1108,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'rankings';
         value: number | Ranking;
-      } | null)
-    | ({
-        relationTo: 'bo3-sync-runs';
-        value: number | Bo3SyncRun;
       } | null)
     | ({
         relationTo: 'media';
@@ -1523,7 +1463,6 @@ export interface MatchesSelect<T extends boolean = true> {
   externalMatchId?: T;
   id?: T;
   status?: T;
-  bo3Status?: T;
   tier?: T;
   disciplineId?: T;
   date?: T;
@@ -1620,38 +1559,6 @@ export interface RankingsSelect<T extends boolean = true> {
   country?: T;
   lastUpdated?: T;
   isActive?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bo3-sync-runs_select".
- */
-export interface Bo3SyncRunsSelect<T extends boolean = true> {
-  mode?: T;
-  date?: T;
-  startedAt?: T;
-  finishedAt?: T;
-  durationMs?: T;
-  fetched?: T;
-  processed?: T;
-  created?: T;
-  updated?: T;
-  failed?: T;
-  endpointBreakdown?: T;
-  endpointMetrics?:
-    | T
-    | {
-        endpoint?: T;
-        status?: T;
-        fetchedCount?: T;
-        durationMs?: T;
-        retryCount?: T;
-        circuitOpen?: T;
-        errorMessage?: T;
-        id?: T;
-      };
-  errorMessage?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1946,7 +1853,6 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
-  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2070,24 +1976,6 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs-stats".
- */
-export interface PayloadJobsStat {
-  id: number;
-  stats?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2153,30 +2041,6 @@ export interface FooterSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs-stats_select".
- */
-export interface PayloadJobsStatsSelect<T extends boolean = true> {
-  stats?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TaskBo3SyncMatches".
- */
-export interface TaskBo3SyncMatches {
-  input: {
-    requestedBy?: string | null;
-    date?: string | null;
-    batchSize?: number | null;
-    concurrency?: number | null;
-    mode?: string | null;
-  };
-  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,0 +1,489 @@
+﻿
+> retakecs@1.0.0 build F:\website-rcs
+> cross-env NODE_OPTIONS=--no-deprecation next build
+
+   Ôû▓ Next.js 15.4.4
+
+   Creating an optimized production build ...
+node.exe : Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+No C:\Users\Windows\AppData\Roaming\npm\pnpm.ps1:24 caractere:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Browserslist: b...ld. Please run::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+/*! ­ƒî╝ daisyUI 5.0.54 */
+ Ô£ô Compiled successfully in 14.0s
+   Linting and checking validity of types ...
+
+Failed to compile.
+
+./src/app/(bo3)/daily-matches.ts
+8:3  Warning: 'getUpcomingMatches' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+9:3  Warning: 'getHighTierMatches' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+14:3  Warning: 'BO3DailyMatches' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+15:3  Warning: 'BO3MatchFilters' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/(frontend)/campeonato/[id]/page.tsx
+91:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+174:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+174:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+224:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+276:17  Warning: Do not use an `<a>` element to navigate to `/contato/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/(frontend)/components/CSMatchCard.tsx
+77:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+103:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/GameCardContainer.tsx
+44:9  Warning: 'performAutoScroll' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+120:6  Warning: React Hook useEffect has a missing dependency: 'performAutoScrollBidirectional'. Either include it or 
+remove the dependency array.  react-hooks/exhaustive-deps
+165:6  Warning: React Hook useEffect has a missing dependency: 'performAutoScrollBidirectional'. Either include it or 
+remove the dependency array.  react-hooks/exhaustive-deps
+289:6  Warning: React Hook useEffect has missing dependencies: 'handleMouseDown', 'handleMouseMove', 'handleMouseUp', 
+'handleTouchEnd', 'handleTouchMove', and 'handleTouchStart'. Either include them or remove the dependency array.  
+react-hooks/exhaustive-deps
+
+./src/app/(frontend)/components/Header.tsx
+56:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+76:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/LiveGames.tsx
+6:38  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+31:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/app/(frontend)/components/MainNews.tsx
+18:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/app/(frontend)/components/MapGrid.tsx
+56:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/MatchDetailHeader.tsx
+80:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+121:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/MobileNewsHighlights.tsx
+4:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+5:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+29:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+40:5  Warning: React Hook useEffect has a missing dependency: 'featuredPost'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+
+./src/app/(frontend)/components/NewsGrid.tsx
+5:36  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+6:52  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+30:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+41:6  Warning: React Hook useEffect has a missing dependency: 'featuredPost'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+
+./src/app/(frontend)/components/NewsListSection.tsx
+5:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+6:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+30:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+41:5  Warning: React Hook useEffect has a missing dependency: 'featuredPost'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+
+./src/app/(frontend)/components/NextMatchCard.tsx
+153:9  Warning: 'getStatusColor' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+200:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+238:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/Ranking.tsx
+21:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/app/(frontend)/components/RelatedNews.tsx
+48:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/(frontend)/components/Scoreboard.tsx
+49:5  Warning: React Hook useMemo has a missing dependency: 'getRosterWithStats'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+53:5  Warning: React Hook useMemo has a missing dependency: 'getRosterWithStats'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+
+./src/app/(frontend)/components/TransferMarketSection.tsx
+5:36  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/app/(frontend)/layout.tsx
+11:7  Warning: 'inter' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/(frontend)/noticias/page.tsx
+6:8  Warning: 'Footer' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+40:10  Warning: 'totalDocs' is assigned a value but never used. Allowed unused elements of array destructuring must 
+match /^_/u.  @typescript-eslint/no-unused-vars
+126:6  Warning: React Hook useEffect has missing dependencies: 'fetchNews' and 'selectedCategory'. Either include them 
+or remove the dependency array.  react-hooks/exhaustive-deps
+134:6  Warning: React Hook useEffect has missing dependencies: 'currentPage', 'featuredPost', 'fetchNews', and 
+'news.length'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+167:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+167:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+339:21  Warning: Do not use an `<a>` element to navigate to `/contato/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/(frontend)/noticias/[id]/page.tsx
+29:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+90:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+95:31  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+104:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+115:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+121:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+127:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+133:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+146:42  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+148:47  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+161:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+177:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+204:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+260:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+273:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+281:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+307:41  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+317:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+344:13  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+344:13  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+369:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+369:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+371:11  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+371:11  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+429:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+491:19  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+491:19  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+510:19  Warning: Do not use an `<a>` element to navigate to `/contato/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+548:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+574:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+602:17  Warning: Do not use an `<a>` element to navigate to `/partidas/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+637:13  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+637:13  Warning: Do not use an `<a>` element to navigate to `/noticias/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/(frontend)/partida/[id]/page.tsx
+167:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+388:13  Warning: Do not use an `<a>` element to navigate to `/partidas/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+419:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+419:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+423:11  Warning: Do not use an `<a>` element to navigate to `/partidas/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/(frontend)/partidas/page.tsx
+4:8  Warning: 'Footer' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+163:32  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+233:6  Warning: React Hook useEffect has a missing dependency: 'filterMatches'. Either include it or remove the 
+dependency array.  react-hooks/exhaustive-deps
+252:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+252:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+418:17  Warning: Do not use an `<a>` element to navigate to `/contato/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/(frontend)/rankings/page.tsx
+40:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+50:35  Warning: 'trend' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/(frontend)/team/[teamId]/page.tsx
+113:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from 
+`next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from 
+your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+197:13  Warning: Do not use an `<a>` element to navigate to `/rankings/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+217:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+217:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+221:11  Warning: Do not use an `<a>` element to navigate to `/rankings/`. Use `<Link />` from `next/link` instead. 
+See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+310:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/app/(frontend)/[slug]/page.tsx
+6:23  Warning: 'PageType' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+14:10  Warning: 'Footer' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+51:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+51:11  Warning: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: 
+https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/blocks/MediaBlock/Component.tsx
+27:5  Warning: 'disableInnerContainer' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/endpoints/bo3-sync-trigger.ts
+6:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+6:34  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/endpoints/seed/image-1.ts
+Error: Parsing error: Declaration or statement expected.
+
+./src/endpoints/seed/image-2.ts
+Error: Parsing error: Declaration or statement expected.
+
+./src/endpoints/seed/image-3.ts
+Error: Parsing error: Declaration or statement expected.
+
+./src/Footer/Component.tsx
+7:10  Warning: 'ThemeSelector' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/migrations/20260405_033302.ts
+3:41  Warning: 'req' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+4:52  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+265:34  Warning: 'payload' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+265:43  Warning: 'req' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/migrations/20260405_035800_payload_jobs_meta_hotfix.ts
+8:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/migrations/20260405_040200_schema_reconcile_hotfix.ts
+6:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/bo3-sync.queue.int.spec.ts
+144:73  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+152:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/bo3-sync.service.int.spec.ts
+33:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+67:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+102:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+107:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+114:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+121:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+204:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+243:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+258:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+307:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+338:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+347:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+357:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+396:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+403:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+423:10  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/bo3-sync.service.ts
+344:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+368:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+369:65  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+372:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+373:71  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+379:12  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^(_|ignore)/u.  
+@typescript-eslint/no-unused-vars
+400:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+424:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+433:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+456:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+480:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+489:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+519:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+585:15  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+589:15  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+644:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+654:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+931:30  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+998:41  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1013:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1042:28  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1216:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1223:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/list-bo3-simple-v2-only.ts
+40:83  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+47:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+71:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+109:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+112:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+124:15  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+124:38  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+127:52  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+164:20  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^(_|ignore)/u.  
+@typescript-eslint/no-unused-vars
+188:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+230:38  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/list-bo3-simple.ts
+38:83  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+69:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+102:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+139:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/list-bo3-v2-only.ts
+9:3  Warning: 'getTodayMatchesV2' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+41:47  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+78:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+119:58  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+137:61  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+155:60  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/list-bo3.ts
+7:3  Warning: 'debugActualAPIResponse' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+41:83  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:81  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+143:41  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+159:47  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+219:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+239:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+258:41  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+283:56  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+312:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+338:54  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+359:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+386:87  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+393:54  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/sync-bo3-to-payload.ts
+12:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+12:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/scripts/test-bo3-upcoming-v2.ts
+31:9  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+34:9  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+36:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+48:25  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/utils/bo3-endpoints.ts
+68:69  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+69:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+130:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+130:62  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+137:62  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+144:80  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+151:32  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+176:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+176:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+176:65  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+296:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+303:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+310:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+352:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/utils/bo3.requests.ts
+19:3  Warning: 'TeamRankingEntry' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+20:3  Warning: 'TeamInfo' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+21:3  Warning: 'Country' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+22:3  Warning: 'RosterPlayer' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+23:3  Warning: 'RankingsMeta' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+35:47  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+157:75  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+229:36  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+297:68  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+304:30  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+305:30  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+306:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+459:40  Warning: 'date' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+511:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+516:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+526:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+616:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+641:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+804:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+817:11  Warning: 'response2' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+817:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+832:11  Warning: 'response3' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+832:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+847:11  Warning: 'response4' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+847:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+863:11  Warning: 'response5' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+863:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1231:30  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1240:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/utils/bo3.types.ts
+199:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/utils/payloadCms.ts
+5:76  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+23:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+37:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/utils/semanticSearch.ts
+65:69  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+76:34  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+91:31  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+106:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: 
+https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+ÔÇëELIFECYCLEÔÇë Command failed with exit code 1.

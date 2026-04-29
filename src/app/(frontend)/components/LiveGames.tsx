@@ -49,24 +49,9 @@ export const LiveGames = () => {
   }, [])
 
   return (
-    <section className="container mx-auto px-4 mt-2">
-      <h2 className="text-lg font-bold text-rcs-sec mb-2 flex items-center group cursor-pointer">
-        <span className="w-2.5 h-2.5 bg-rcs-cta rounded-full mr-2 group-hover:animate-pulse transition-all group-hover:bg-[red]"></span>
-        JOGOS DE HOJE
-        <span className="ml-2 text-xs font-normal text-rcs-sec-500 group-hover:text-rcs-cta transition-colors">
-          Deslize para ver mais
-        </span>
-      </h2>
-      {/* Mostrar todos os jogos em uma única lista scrollável */}
-      <GameCardContainer
-        games={games}
-        title=""
-        maxTeamNameLength={14}
-        autoScroll={true}
-        scrollSpeed={10}
-        pauseOnHover={true}
-      />
-    </section>
+    <div className="hidden">
+      {/* TODO: Implementar integração com CSAPI para exibir jogos ao vivo */}
+    </div>
   )
 }
 
