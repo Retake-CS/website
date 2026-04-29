@@ -27,9 +27,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
   const { slug } = await paramsPromise
   const url = '/' + slug
 
-  let page: PageType | null
-
-  page = await queryPageBySlug({
+  const page = await queryPageBySlug({
     slug,
   })
 
