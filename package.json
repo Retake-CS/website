@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "now-build": "pnpm run build",
     "sync:csapi": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/sync-csapi.ts",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
