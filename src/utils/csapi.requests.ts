@@ -44,7 +44,7 @@ export async function getMatchDetails(matchId: number): Promise<CSAPIMatchResult
  */
 export async function getRankings(date?: string): Promise<CSAPIRanking> {
   const query = date ? `?date=${date}` : ''
-  return fetchCSAPI<CSAPIRanking>(`/rankings/${query}`)
+  return fetchCSAPI<CSAPIRanking>(`/rankings${query}`)
 }
 
 /**
