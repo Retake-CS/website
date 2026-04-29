@@ -1,17 +1,11 @@
 import { Payload } from 'payload'
 import { getLatestMatches, getRankings, getPlayerStats } from './csapi.requests'
 
-// ─── Helpers defensivos ──────────────────────────────────────────────────────
+type DocId = string | number
 
-/**
- * A CSAPI pode retornar diretamente um array OU um objeto com propriedade
- * que contém o array (ex: { rankings: [...] } ou { matches: [...] }).
- * Esta função normaliza os dois casos.
- */
 function toArray<T>(data: any, arrayKey?: string): T[] {
   if (Array.isArray(data)) return data as T[]
   if (arrayKey && data && Array.isArray(data[arrayKey])) return data[arrayKey] as T[]
-  // Tenta encontrar o primeiro campo que seja array
   if (data && typeof data === 'object') {
     for (const key of Object.keys(data)) {
       if (Array.isArray(data[key])) return data[key] as T[]
@@ -20,20 +14,20 @@ function toArray<T>(data: any, arrayKey?: string): T[] {
   return []
 }
 
-async function getPlaceholderMediaId(payload: Payload): Promise<string | null> {
+async function getPlaceholderMediaId(payload: Payload): Promise<DocId | null> {
   const placeholder = await payload.find({
     collection: 'media',
     where: { alt: { equals: 'Placeholder' } },
     limit: 1,
   })
-  return (placeholder.docs[0]?.id as string) ?? null
+  return (placeholder.docs[0]?.id as DocId) ?? null
 }
 
 async function ensureTeam(
   payload: Payload,
   teamData: { id?: number; name?: string; rank?: number },
-  placeholderId: string | null,
-): Promise<string> {
+  placeholderId: DocId | null,
+): Promise<DocId> {
   if (!teamData?.id || !teamData?.name) {
     throw new Error(`ensureTeam: dados inválidos — ${JSON.stringify(teamData)}`)
   }
@@ -44,7 +38,7 @@ async function ensureTeam(
     limit: 1,
   })
 
-  if (existing.docs.length > 0) return existing.docs[0].id as string
+  if (existing.docs.length > 0) return existing.docs[0].id as DocId
 
   const created = await payload.create({
     collection: 'teams',
@@ -57,10 +51,10 @@ async function ensureTeam(
       country: 'N/A',
     },
   })
-  return created.id as string
+  return created.id as DocId
 }
 
-async function ensureTournament(payload: Payload, eventName: string): Promise<string> {
+async function ensureTournament(payload: Payload, eventName: string): Promise<DocId> {
   if (!eventName) throw new Error('ensureTournament: eventName vazio')
 
   const existing = await payload.find({
@@ -69,7 +63,7 @@ async function ensureTournament(payload: Payload, eventName: string): Promise<st
     limit: 1,
   })
 
-  if (existing.docs.length > 0) return existing.docs[0].id as string
+  if (existing.docs.length > 0) return existing.docs[0].id as DocId
 
   const created = await payload.create({
     collection: 'tournaments',
@@ -78,10 +72,8 @@ async function ensureTournament(payload: Payload, eventName: string): Promise<st
       status: 'completed',
     },
   })
-  return created.id as string
+  return created.id as DocId
 }
-
-// ─── Sync de Rankings ────────────────────────────────────────────────────────
 
 async function syncRankings(payload: Payload) {
   console.log('[SYNC] Iniciando rankings...')
@@ -97,10 +89,14 @@ async function syncRankings(payload: Payload) {
   }
 
   const placeholderId = await getPlaceholderMediaId(payload)
-  // Marca todos os anteriores como inativos antes de inserir novos
+
   const existing = await payload.find({ collection: 'rankings', limit: 200 })
   for (const doc of existing.docs) {
-    await payload.update({ collection: 'rankings', id: doc.id as string, data: { isActive: false } })
+    await payload.update({
+      collection: 'rankings',
+      id: doc.id as DocId,
+      data: { isActive: false },
+    })
   }
 
   const date = (raw as any)?.date ? new Date((raw as any).date) : new Date()
@@ -119,11 +115,7 @@ async function syncRankings(payload: Payload) {
         points: rank.points ?? 0,
         change: Math.abs(rank.rank_diff ?? 0),
         trend:
-          (rank.rank_diff ?? 0) < 0
-            ? 'up'
-            : (rank.rank_diff ?? 0) > 0
-            ? 'down'
-            : 'stable',
+          (rank.rank_diff ?? 0) < 0 ? 'up' : (rank.rank_diff ?? 0) > 0 ? 'down' : 'stable',
         region: 'mundial',
         country: 'N/A',
         lastUpdated: date,
@@ -139,7 +131,7 @@ async function syncRankings(payload: Payload) {
       if (existingRank.docs.length > 0) {
         await payload.update({
           collection: 'rankings',
-          id: existingRank.docs[0].id as string,
+          id: existingRank.docs[0].id as DocId,
           data: rankingData,
         })
       } else {
@@ -152,8 +144,6 @@ async function syncRankings(payload: Payload) {
 
   console.log(`[SYNC] Rankings concluído — ${rankingsList.length} times`)
 }
-
-// ─── Sync de Partidas ────────────────────────────────────────────────────────
 
 async function syncMatches(payload: Payload, limit = 50) {
   console.log(`[SYNC] Iniciando últimas ${limit} partidas...`)
@@ -218,7 +208,7 @@ async function syncMatches(payload: Payload, limit = 50) {
       if (existingMatch.docs.length > 0) {
         await payload.update({
           collection: 'matches',
-          id: existingMatch.docs[0].id as string,
+          id: existingMatch.docs[0].id as DocId,
           data: matchData,
         })
       } else {
@@ -231,8 +221,6 @@ async function syncMatches(payload: Payload, limit = 50) {
 
   console.log('[SYNC] Partidas concluído')
 }
-
-// ─── Sync de Player Stats ────────────────────────────────────────────────────
 
 async function syncPlayerStats(payload: Payload) {
   console.log('[SYNC] Iniciando player stats...')
@@ -261,7 +249,6 @@ async function syncPlayerStats(payload: Payload) {
           kast: stats.kast ?? null,
         }
 
-        // Associa time se vier no payload
         if (player.team?.id) {
           const teamRes = await payload.find({
             collection: 'teams',
@@ -269,14 +256,14 @@ async function syncPlayerStats(payload: Payload) {
             limit: 1,
           })
           if (teamRes.docs.length > 0) {
-            playerData.team = teamRes.docs[0].id
+            playerData.team = teamRes.docs[0].id as DocId
           }
         }
 
         if (existing.docs.length > 0) {
           await payload.update({
             collection: 'players',
-            id: existing.docs[0].id as string,
+            id: existing.docs[0].id as DocId,
             data: playerData,
           })
         } else {
@@ -288,32 +275,26 @@ async function syncPlayerStats(payload: Payload) {
     }
     console.log('[SYNC] Player stats concluído')
   } catch (err: any) {
-    // /players/stats pode não existir — não quebra o resto do sync
     console.warn('[SYNC] Player stats falhou (não crítico):', err.message)
   }
 }
-
-// ─── Entry point ─────────────────────────────────────────────────────────────
 
 export async function performCSAPISync(payload: Payload) {
   console.log('[SYNC] === Iniciando CSAPI sync ===')
   const started = Date.now()
 
-  // Rankings
   try {
     await syncRankings(payload)
   } catch (err: any) {
     console.error('[SYNC] syncRankings ERROR:', err.message)
   }
 
-  // Partidas (últimas 50)
   try {
     await syncMatches(payload, 50)
   } catch (err: any) {
     console.error('[SYNC] syncMatches ERROR:', err.message)
   }
 
-  // Player stats (não crítico)
   try {
     await syncPlayerStats(payload)
   } catch (err: any) {
