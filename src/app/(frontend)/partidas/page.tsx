@@ -286,8 +286,8 @@ const CSMatches = () => {
               totalMatches={filteredMatches.length}
             />
 
-            {/* Partidas ao vivo */}
-            {liveMatches.length > 0 && (
+            {/* TODO: Implementar integração com CSAPI para exibir partidas ao vivo */}
+            {/* {liveMatches.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-lg font-bold text-rcs-sec mb-4 flex items-center">
                   <div className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></div>
@@ -302,7 +302,7 @@ const CSMatches = () => {
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Outras partidas */}
             {isLoading ? (

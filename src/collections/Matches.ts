@@ -33,11 +33,6 @@ const Matches: CollectionConfig = {
       defaultValue: 'upcoming',
     },
     {
-      name: 'bo3Status',
-      type: 'text',
-      index: true,
-    },
-    {
       name: 'tier',
       type: 'text',
       index: true,

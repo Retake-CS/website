@@ -73,7 +73,7 @@ const Tournaments: CollectionConfig = {
     {
       name: 'source',
       type: 'text',
-      defaultValue: 'bo3.gg',
+      defaultValue: 'csapi.de',
     },
     {
       name: 'lastSyncedAt',
