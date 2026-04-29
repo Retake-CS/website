@@ -14,7 +14,7 @@ export const Ranking = () => {
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        const response = await fetch('/api/rankings?limit=8&sort=position');
+        const response = await fetch('/api/rankings?limit=8&sort=position&where[isActive][equals]=true');
         if (!response.ok) {
           throw new Error('Failed to fetch rankings');
         }
@@ -30,14 +30,14 @@ export const Ranking = () => {
         console.error('Error fetching rankings:', error);
         // Fallback to mock data
         setTopTeams([
-          { position: 1, name: "Time Alpha", points: 1025 },
-          { position: 2, name: "Time Beta", points: 980 },
-          { position: 3, name: "Time Gamma", points: 840 },
-          { position: 4, name: "Time Delta", points: 790 },
-          { position: 5, name: "Time Epsilon", points: 720 },
-          { position: 6, name: "Time Zeta", points: 685 },
-          { position: 7, name: "Time Theta", points: 650 },
-          { position: 8, name: "Time Omega", points: 615 },
+          { position: 1, name: "Time Alpha", points: 1025, trend: 'stable' },
+          { position: 2, name: "Time Beta", points: 980, trend: 'stable' },
+          { position: 3, name: "Time Gamma", points: 840, trend: 'stable' },
+          { position: 4, name: "Time Delta", points: 790, trend: 'stable' },
+          { position: 5, name: "Time Epsilon", points: 720, trend: 'stable' },
+          { position: 6, name: "Time Zeta", points: 685, trend: 'stable' },
+          { position: 7, name: "Time Theta", points: 650, trend: 'stable' },
+          { position: 8, name: "Time Omega", points: 615, trend: 'stable' },
         ]);
       }
     };
