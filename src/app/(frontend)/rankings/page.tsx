@@ -52,7 +52,7 @@ const TrendIndicator = ({ change, trend }: { change: number; trend: Ranking['tre
     return <span className="text-rcs-bg/50 text-xs">—</span>
   }
 
-  const isPositive = change > 0
+  const isPositive = trend === 'up'
   const color = isPositive ? 'text-green-400' : 'text-red-400'
   const arrow = isPositive ? '↑' : '↓'
 
@@ -85,6 +85,8 @@ const TeamRankingsPage = () => {
         setIsLoading(true)
         const params = new URLSearchParams({
           limit: '50',
+          sort: 'position',
+          'where[isActive][equals]': 'true',
         })
         if (selectedRegion !== 'mundial') {
           params.set('where[region][equals]', selectedRegion)
