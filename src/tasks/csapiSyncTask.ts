@@ -20,7 +20,7 @@ export const csapiSyncTask: TaskConfig<any> = {
   },
   schedule: [
     {
-      cron: '0 */30 * * * *', // Every 30 minutes
+      cron: '*/30 * * * *', // Every 30 minutes (5-field standard Unix cron)
       queue: 'default',
     },
   ],
