@@ -3,26 +3,28 @@ import { getLatestMatches, getRankings, getPlayerStats } from './csapi.requests'
 
 type DocId = string | number
 
-function toArray<T>(data: any, arrayKey?: string): T[] {
+function toArray<T>(data: unknown, arrayKey?: string): T[] {
   if (Array.isArray(data)) return data as T[]
-  if (arrayKey && data && Array.isArray(data[arrayKey])) return data[arrayKey] as T[]
+  if (arrayKey && data && typeof data === 'object' && Array.isArray((data as any)[arrayKey]))
+    return (data as any)[arrayKey] as T[]
   if (data && typeof data === 'object') {
-    for (const key of Object.keys(data)) {
-      if (Array.isArray(data[key])) return data[key] as T[]
+    for (const key of Object.keys(data as object)) {
+      if (Array.isArray((data as any)[key])) return (data as any)[key] as T[]
     }
   }
   return []
 }
 
 async function getPlaceholderMediaId(payload: Payload): Promise<DocId | null> {
-  const placeholder = await payload.find({
+  const res = await payload.find({
     collection: 'media',
     where: { alt: { equals: 'Placeholder' } },
     limit: 1,
   })
-  return (placeholder.docs[0]?.id as DocId) ?? null
+  return res.docs[0]?.id ?? null
 }
 
+// externalTeamId é type: 'number' no schema de Teams
 async function ensureTeam(
   payload: Payload,
   teamData: { id?: number; name?: string; rank?: number },
@@ -34,24 +36,26 @@ async function ensureTeam(
 
   const existing = await payload.find({
     collection: 'teams',
-    where: { externalTeamId: { equals: String(teamData.id) } },
+    where: { externalTeamId: { equals: teamData.id } }, // number direto
     limit: 1,
   })
 
-  if (existing.docs.length > 0) return existing.docs[0].id as DocId
+  if (existing.docs.length > 0) return existing.docs[0].id
 
   const created = await payload.create({
     collection: 'teams',
     data: {
-      externalTeamId: String(teamData.id),
+      externalTeamId: teamData.id,                           // number
       name: teamData.name,
       shortName: teamData.name.substring(0, 4).toUpperCase(),
       ranking: teamData.rank ?? null,
-      ...(placeholderId ? { logo: placeholderId } : {}),
       country: 'N/A',
-    },
+      source: 'csapi.de',
+      lastSyncedAt: new Date(),
+      ...(placeholderId ? { logo: placeholderId } : {}),
+    } as any,
   })
-  return created.id as DocId
+  return created.id
 }
 
 async function ensureTournament(payload: Payload, eventName: string): Promise<DocId> {
@@ -63,22 +67,21 @@ async function ensureTournament(payload: Payload, eventName: string): Promise<Do
     limit: 1,
   })
 
-  if (existing.docs.length > 0) return existing.docs[0].id as DocId
+  if (existing.docs.length > 0) return existing.docs[0].id
 
   const created = await payload.create({
     collection: 'tournaments',
-    data: {
-      name: eventName,
-      status: 'completed',
-    },
+    data: { name: eventName, status: 'completed' } as any,
   })
-  return created.id as DocId
+  return created.id
 }
+
+// ─── Rankings ────────────────────────────────────────────────────────────────
 
 async function syncRankings(payload: Payload) {
   console.log('[SYNC] Iniciando rankings...')
   const raw = await getRankings()
-  console.log('[SYNC] getRankings raw keys:', raw ? Object.keys(raw) : 'null')
+  console.log('[SYNC] getRankings raw keys:', raw ? Object.keys(raw as object) : 'null')
 
   const rankingsList = toArray<any>(raw, 'rankings')
   console.log(`[SYNC] ${rankingsList.length} rankings encontrados`)
@@ -90,16 +93,17 @@ async function syncRankings(payload: Payload) {
 
   const placeholderId = await getPlaceholderMediaId(payload)
 
+  // Desativa todos antes de re-inserir
   const existing = await payload.find({ collection: 'rankings', limit: 200 })
   for (const doc of existing.docs) {
     await payload.update({
       collection: 'rankings',
-      id: doc.id as DocId,
-      data: { isActive: false },
+      id: doc.id,
+      data: { isActive: false } as any,
     })
   }
 
-  const date = (raw as any)?.date ? new Date((raw as any).date) : new Date()
+  const syncDate = (raw as any)?.date ? new Date((raw as any).date) : new Date()
 
   for (const rank of rankingsList) {
     try {
@@ -118,7 +122,7 @@ async function syncRankings(payload: Payload) {
           (rank.rank_diff ?? 0) < 0 ? 'up' : (rank.rank_diff ?? 0) > 0 ? 'down' : 'stable',
         region: 'mundial',
         country: 'N/A',
-        lastUpdated: date,
+        lastUpdated: syncDate,
         isActive: true,
       }
 
@@ -131,7 +135,7 @@ async function syncRankings(payload: Payload) {
       if (existingRank.docs.length > 0) {
         await payload.update({
           collection: 'rankings',
-          id: existingRank.docs[0].id as DocId,
+          id: existingRank.docs[0].id,
           data: rankingData,
         })
       } else {
@@ -144,6 +148,8 @@ async function syncRankings(payload: Payload) {
 
   console.log(`[SYNC] Rankings concluído — ${rankingsList.length} times`)
 }
+
+// ─── Matches ─────────────────────────────────────────────────────────────────
 
 async function syncMatches(payload: Payload, limit = 50) {
   console.log(`[SYNC] Iniciando últimas ${limit} partidas...`)
@@ -182,13 +188,15 @@ async function syncMatches(payload: Payload, limit = 50) {
         : []
 
       const matchData: any = {
-        externalMatchId: String(match.id),
+        externalMatchId: String(match.id),   // text no schema
         status: 'completed',
         date: match.date ? new Date(match.date) : new Date(),
         team1: t1Id,
         team2: t2Id,
-        team1Name: t1.name,
-        team2Name: t2.name,
+        team1Name: t1.name ?? '',
+        team2Name: t2.name ?? '',
+        team1ExternalId: Number(t1.id),      // number no schema
+        team2ExternalId: Number(t2.id),      // number no schema
         tournament: tournamentId,
         tournamentName: match.event ?? '',
         finalScore: {
@@ -197,6 +205,7 @@ async function syncMatches(payload: Payload, limit = 50) {
         },
         format: match.best_of ? `BO${match.best_of}` : 'BO1',
         maps,
+        lastSyncedAt: new Date(),
       }
 
       const existingMatch = await payload.find({
@@ -208,7 +217,7 @@ async function syncMatches(payload: Payload, limit = 50) {
       if (existingMatch.docs.length > 0) {
         await payload.update({
           collection: 'matches',
-          id: existingMatch.docs[0].id as DocId,
+          id: existingMatch.docs[0].id,
           data: matchData,
         })
       } else {
@@ -222,6 +231,10 @@ async function syncMatches(payload: Payload, limit = 50) {
   console.log('[SYNC] Partidas concluído')
 }
 
+// ─── Player Stats ─────────────────────────────────────────────────────────────
+// A collection Players exige: name (text), nickname (text), country (text)
+// Não existe externalPlayerId — usamos nickname como chave de busca
+
 async function syncPlayerStats(payload: Payload) {
   console.log('[SYNC] Iniciando player stats...')
   try {
@@ -233,37 +246,39 @@ async function syncPlayerStats(payload: Payload) {
       try {
         if (!player?.id) continue
 
+        const nickname = player.nickname ?? player.name ?? `Player${player.id}`
+        const name = player.name ?? nickname
+        const country = player.country ?? player.nationality ?? 'N/A'
+
+        // Busca pelo nickname (campo único disponível como chave)
         const existing = await payload.find({
           collection: 'players',
-          where: { externalPlayerId: { equals: String(player.id) } },
+          where: { nickname: { equals: nickname } },
           limit: 1,
         })
 
-        const stats = player.stats ?? player
         const playerData: any = {
-          externalPlayerId: String(player.id),
-          name: player.name ?? `Player ${player.id}`,
-          rating: stats.rating ?? stats.rating_2 ?? null,
-          kd: stats.k && stats.d ? Number((stats.k / stats.d).toFixed(2)) : null,
-          adr: stats.adr ?? null,
-          kast: stats.kast ?? null,
+          name,
+          nickname,
+          country,
         }
 
+        // Liga ao team se existir
         if (player.team?.id) {
           const teamRes = await payload.find({
             collection: 'teams',
-            where: { externalTeamId: { equals: String(player.team.id) } },
+            where: { externalTeamId: { equals: Number(player.team.id) } },
             limit: 1,
           })
           if (teamRes.docs.length > 0) {
-            playerData.team = teamRes.docs[0].id as DocId
+            playerData.team = teamRes.docs[0].id
           }
         }
 
         if (existing.docs.length > 0) {
           await payload.update({
             collection: 'players',
-            id: existing.docs[0].id as DocId,
+            id: existing.docs[0].id,
             data: playerData,
           })
         } else {
@@ -279,27 +294,20 @@ async function syncPlayerStats(payload: Payload) {
   }
 }
 
+// ─── Entry point ──────────────────────────────────────────────────────────────
+
 export async function performCSAPISync(payload: Payload) {
   console.log('[SYNC] === Iniciando CSAPI sync ===')
   const started = Date.now()
 
-  try {
-    await syncRankings(payload)
-  } catch (err: any) {
-    console.error('[SYNC] syncRankings ERROR:', err.message)
-  }
+  try { await syncRankings(payload) }
+  catch (err: any) { console.error('[SYNC] syncRankings ERROR:', err.message) }
 
-  try {
-    await syncMatches(payload, 50)
-  } catch (err: any) {
-    console.error('[SYNC] syncMatches ERROR:', err.message)
-  }
+  try { await syncMatches(payload, 50) }
+  catch (err: any) { console.error('[SYNC] syncMatches ERROR:', err.message) }
 
-  try {
-    await syncPlayerStats(payload)
-  } catch (err: any) {
-    console.warn('[SYNC] syncPlayerStats WARN:', err.message)
-  }
+  try { await syncPlayerStats(payload) }
+  catch (err: any) { console.warn('[SYNC] syncPlayerStats WARN:', err.message) }
 
   const elapsed = ((Date.now() - started) / 1000).toFixed(1)
   console.log(`[SYNC] === Concluído em ${elapsed}s ===`)
