@@ -36,14 +36,17 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const shouldPushSchema = process.env.PAYLOAD_PUSH_SCHEMA === 'true' && process.env.VITEST !== 'true'
 
+// Production Turso database — fallback when DATABASE_URI env var is not set
+const TURSO_URL =
+  'libsql://retakecs-retakecs.aws-us-west-2.turso.io?authToken=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Nzc0NjQ1NzcsImlkIjoiMDE5ZGQ5MjQtMTcwMS03OTBjLWE4MjAtYTkyNmQ0YzY4MGNkIiwicmlkIjoiMjc0ZDQ5YzQtMDdiZS00YzkxLTlmNmMtZjczYjE5YWY5MTg3In0.lOg5EBzf_waYFg0TUHooGw7mRpfprbCB63Go1CucWlS5gttmEkh9EgXuG4Ht1f0uQHhLALyKhpzkOLv02awaAQ'
+
+const PAYLOAD_SECRET_FALLBACK = 'retakecs-payload-secret-2026-xk9mQp3jRs'
+const CRON_SECRET_FALLBACK = 'retakecs-cron-2026-mK7pZ'
+
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
@@ -52,32 +55,17 @@ export default buildConfig({
     user: Users.slug,
     livePreview: {
       breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-        {
-          label: 'Tablet',
-          name: 'tablet',
-          width: 768,
-          height: 1024,
-        },
-        {
-          label: 'Desktop',
-          name: 'desktop',
-          width: 1440,
-          height: 900,
-        },
+        { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
+        { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
       ],
     },
   },
-  // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URI || '',
+      // Local dev usa DATABASE_URI do .env; Vercel usa Turso
+      url: process.env.DATABASE_URI || TURSO_URL,
     },
     push: shouldPushSchema,
   }),
@@ -101,7 +89,7 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || PAYLOAD_SECRET_FALLBACK,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -109,19 +97,15 @@ export default buildConfig({
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
-        // Allow logged in users to execute this endpoint (default)
         if (req.user) return true
-
-        // If there is no logged in user, then check
-        // for the Vercel Cron secret to be present as an
-        // Authorization header:
         const authHeader = req.headers.get('authorization')
-        return authHeader === `Bearer ${process.env.CRON_SECRET}`
+        const secret = process.env.CRON_SECRET || CRON_SECRET_FALLBACK
+        return authHeader === `Bearer ${secret}`
       },
     },
     autoRun: [
       {
-        cron: '0 */30 * * * *', // Every 30 minutes
+        cron: '*/30 * * * *',
         queue: 'default',
       },
     ],
