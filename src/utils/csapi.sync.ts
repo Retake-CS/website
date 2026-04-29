@@ -4,9 +4,6 @@ import { getLatestMatches, getRankings } from './csapi.requests'
 export async function performCSAPISync(payload: Payload) {
   console.log('Starting intelligent CSAPI sync...')
   
-  // Rate limiting logic: Check last sync time
-  // We can use a Global or a specific collection to store the last sync timestamp
-  // For now, let's just check the most recent ranking update
   const latestRanking = await payload.find({
     collection: 'rankings',
     sort: '-lastUpdated',
@@ -20,7 +17,6 @@ export async function performCSAPISync(payload: Payload) {
     const lastSyncDate = new Date(lastSync)
     const diffMinutes = (now.getTime() - lastSyncDate.getTime()) / (1000 * 60)
     
-    // Intelligent Skip: If synced less than 15 minutes ago, skip rankings sync
     if (diffMinutes < 15) {
       console.log(`Skipping rankings sync. Last sync was ${Math.round(diffMinutes)} minutes ago.`)
     } else {
@@ -30,7 +26,6 @@ export async function performCSAPISync(payload: Payload) {
     await syncRankings(payload)
   }
 
-  // Always sync matches as they change more frequently, but maybe only the last 20
   await syncMatches(payload, 20)
   
   console.log('Intelligent CSAPI sync complete.')
@@ -55,10 +50,13 @@ async function syncRankings(payload: Payload) {
           team: teamId,
           points: rank.points,
           change: Math.abs(rank.rank_diff),
-          trend: rank.rank_diff > 0 ? 'up' : rank.rank_diff < 0 ? 'down' : 'stable',
+          // rank_diff negativo = subiu posicoes (numero menor = melhor rank)
+          // rank_diff positivo = caiu posicoes
+          trend: rank.rank_diff < 0 ? 'up' : rank.rank_diff > 0 ? 'down' : 'stable',
           region: 'mundial',
           country: 'N/A',
           lastUpdated: new Date(rankingsData.date),
+          isActive: true,
         }
         
         const existingRank = await payload.find({
